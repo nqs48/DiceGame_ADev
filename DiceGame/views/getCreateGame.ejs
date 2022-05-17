@@ -92,92 +92,91 @@
         </div>
       </div>
     </nav>
- <table class="min-w-full leading-normal">
-                  <thead>
-                    <tr>
-                      <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        Game
-                      </th>
-                      <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        Player 1
-                      </th>
-                      <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        Player 2
-                      </th>
-                      <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        Player 3
-                      </th>
-                      <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        In Progress
-                      </th>
-                      <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        Winner
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                      >
-                        <div class="flex items-center">
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              <%= game._id %>
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                      >
-                        <p class="text-gray-900 whitespace-no-wrap"><%= game.player1 %>  </p>
-                      </td>
-                      <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                      >
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          <%= game.player2 %> 
-                        </p>
-                      </td>
-                      <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                      >
-                        <p class="text-gray-900 whitespace-no-wrap"><%= game.player3 %> </p>
-                      </td>
-                      <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                      >
-                        <span
-                          class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                        >
-                          <span
-                            aria-hidden
-                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                          ></span>
-                          <span class="relative"><%= game.inProgress %> </span>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+    <div
+      class="mx-auto min-h-full w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div >
+        <div
+          class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+        >
+          Game ID : <%=game._id %>
+        </div>
+      </div>
+      <table class="flex-row min-w-full leading-normal justify-center items-center">
+        <thead>
+          <tr>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Id
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Name
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Age
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (game.gamers.length > 0) { %> <% game.gamers.forEach(element =>
+          { %>
+          <tr>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <div class="flex items-center">
+                <div class="ml-3">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    <%= element._id %>
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap">
+                <%= element.name %>
+              </p>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap"><%= element.age %></p>
+            </td>
+          </tr>
+          <% }) %> <% } %>
+        </tbody>
+      </table>
+      <div
+        class="relative flex justify-center px-3 py-1 font-semibold text-green-900 leading-tight"
+      >
+        <span
+          aria-hidden
+          class="absolute inset-0 bg-green-200 opacity-50 rounded-b-lg"
+        ></span>
+        <span class="relative">In Progress: <%= game.inProgress %> </span>
+      </div>
 
-
-
-
-
-
+  
+      <div class="bg-gray-100 px-4 py-3 text-right sm:px-6 flex justify-center w-3/5 mx-auto my-10">
+        <button
+          type="button"
+          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          onclick="playGame(game._id)">Play Game</button>
+      </div>
+    </div>
+    <div class="flex-shrink-0 flex items-center justify-center py-6">
+      <img
+        class="block lg:hidden h-40 w-40"
+        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
+        alt="Workflow"
+      />
+      <img
+        class="hidden lg:block h-40 w-40"
+        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
+        alt="Workflow"
+      />
+    </div>
+    <script src="../public/javascripts/app.js"></script>
   </body>
 </html>

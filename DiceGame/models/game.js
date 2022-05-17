@@ -1,45 +1,15 @@
 var mongoose = require("mongoose"),
   Schema = mongoose.Schema;
 
+var playerSchema = new Schema({
+  name: { type: String, trim: true, required: true },
+  age: { type: Number, trim: true, required: true },
+  score: { type: Number, trim: true, required: false },
+});
+
 var gameSchema = new Schema(
   {
-    // gamers: {
-    //   type: [
-    //     {
-    //       player1: {
-    //         name1: { type: String, required: true },
-    //         age1: { type: Number, required: false },
-    //         number1: { type: Number, required: false },
-    //       },
-    //       player2: {
-    //         name2: { type: String, required: true },
-    //         age2: { type: Number, required: false },
-    //         number2: { type: Number, required: false },
-    //       },
-    //       player3: {
-    //         name3: { type: String, required: true },
-    //         age3: { type: Number, required: false },
-    //         number3: { type: Number, required: false },
-    //       },
-    //     },
-    //   ],
-    //   required: true,
-    // },
-    player1: {
-      type: String,
-      trim: true,
-      required: true,
-    },
-    player2: {
-      type: String,
-      trim: true,
-      required: true,
-    },
-    player3: {
-      type: String,
-      trim: true,
-      required: true,
-    },
+    gamers: [playerSchema],
     inProgress: {
       type: Boolean,
       required: false,

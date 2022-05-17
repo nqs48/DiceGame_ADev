@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
-const uriSRV= require("./keysPrivateDB");
+require("dotenv").config();
 
 const app = express();
 
@@ -24,15 +24,13 @@ const indexRouter = require("./routes/index");
 const createGameRouter = require("./routes/createGame");
 const gamesRouter = require("./routes/games");
 
-
 //rutas
 app.use("/", indexRouter);
 app.use("/createGame", createGameRouter);
 app.use("/games", gamesRouter);
 app.use("/findGame", gamesRouter);
 
-
-// catch 404 and forward to error handler 
+// catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
@@ -50,16 +48,11 @@ app.use(function (err, req, res, next) {
 
 //Cadena de conexión MongoBDlocal y MongoDBCompass
 const uriLocal = "mongodb://localhost/diceGame";
+const uriSRV = `mongodb+srv://${process.env.USERMDB}:${process.env.PASSWORD}@cluster0.j505h.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 
-//Conexión a MongoDB
 mongoose
   .connect(uriSRV, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log("Error connecting to MongoDB");
-  });
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.log("Error connecting to MongoDB ",uriSRV ))
 
 module.exports = app;
- 

@@ -1,6 +1,9 @@
 //File: controllers/tvshows.js
 var mongoose = require("mongoose");
 var Game = require("../models/game");
+var Player = require("../models/player");
+var main=require("../public/javascripts/app")
+
 
 // GET - Return all games in the DB
 exports.findAllGames = function (req, res) {
@@ -60,30 +63,59 @@ exports.findById = function (req, res) {
 };
 
 
+
+// GET - Returns current created game
 exports.getAddGame = function (req, res) {
     res.render("createGame", {
       content: "This is a dice game, for three players",
-      title: "express",
+      title: "Create Game",
   });
 }
 
+exports.getUpdatedGame = function (req, res) {
+  res.render("playGame", {
+    content: "This is a dice game, for three players",
+    title: "Create Game",
+  });
+};
 
-// POST - Insert a new TVShow in the DB
+
+// POST - Insert a new game in the DB
 exports.addGame = function (req, res) {
-  console.log("POST");
- console.log(req.body);  //Imprime los datos Enviados
+//  console.log("POST");
+//  console.group("Data:")
+//  console.log(req.body.nameP1)
+//  console.log(req.body.nameP2)
+//  console.log(req.body.nameP3);
+//  console.groupEnd();
+//  //Imprime los datos Enviados
+
+  var player1 = new Player({
+    name: req.body.nameP1,
+    age: req.body.ageP1,
+    score: 0,
+  });
+  var player2 = new Player({
+    name: req.body.nameP2,
+    age: req.body.ageP2,
+    score: 0,
+  });
+  var player3 = new Player({
+    name: req.body.nameP3,
+    age: req.body.ageP3,
+    score: 0,
+  });
 
   var game = new Game({
-    player1: req.body.player1,
-    player2: req.body.player2,
-    player3: req.body.player3,
-    inProgress: false,
+    gamers: [player1,player2,player3],
+    inProgress: true,
   });
 
   game.save(function (err, game) {
     if (err) {
       return res.status(500).send(err.message);
     } else {
+      // res.redirect("/games")
       res.render("getCreateGame", {
         game
       });
@@ -93,8 +125,10 @@ exports.addGame = function (req, res) {
   });
 };
 
+
 // PUT - Update a register already exists
 exports.updateGame = function (req, res) {
+
   Game.findById(req.params.id, function (err, game) {
     game.inProgress= req.body.inProgress,
     tvshow.save(function (err) {
