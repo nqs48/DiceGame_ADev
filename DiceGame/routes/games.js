@@ -29,52 +29,74 @@ router.get("/games", async function(req, res) {
 })
 
 //Get de vista con formulario para crear juego
-router.get("/createGame",(req,res)=>{
+router.get("/createGame",async (req,res)=>{
   res.render("createGame")
 })
 
-router.post("/createGame",(req,res)=>{
-  var player1 = new Player({
-    name: req.body.nameP1,
-    age: req.body.ageP1,
-    score: 0,
-  });
-  var player2 = new Player({
-    name: req.body.nameP2,
-    age: req.body.ageP2,
-    score: 0,
-  });
-  var player3 = new Player({
-    name: req.body.nameP3,
-    age: req.body.ageP3,
-    score: 0,
-  });
-  player1.save();
-  player2.save();
-  player3.save();
+router.post("/createGame",async (req,res)=>{
+  const body= req.body;
+  try {
+    var player1 = new Player({
+      name: body.nameP1,
+      age: body.ageP1,
+      score: 0,
+    });
+    var player2 = new Player({
+      name: body.nameP2,
+      age: body.ageP2,
+      score: 0,
+    });
+    var player3 = new Player({
+      name: req.body.nameP3,
+      age: req.body.ageP3,
+      score: 0,
+    });
+    player1.save();
+    player2.save();
+    player3.save();
 
-  var game = new Game({
-    gamers: [player1, player2, player3],
-    inProgress: true,
-  });
+    var game = new Game({
+      gamers: [player1, player2, player3],
+      inProgress: false,
+    });
 
-  game.save(function (err, game) {
-    if (err) {
-      return res.status(500).send(err.message);
-    } else {
-      // res.redirect("/games")
-      // res.render("getCreateGame", {
-      //   game
-      // });
-      res.send(game)
-      res.status(200);
-      console.log(game);
-    }
-  });
-  console.log(game)
+    await game.save(function (err, game) {
+      if (err) {
+        return res.status(500).send(err.message);
+      } else {
+        res.render("detailsGame", {
+          game,
+          error: false,
+        });
+        // res.send(game);
+        res.status(200);
+        // console.log(game);
+      }
+    });
+    
+  } catch (error) {
+    res.render("detailsGame", {
+      game,
+      error: true,
+    });
+    console.error("Error: "+ error.message)
+  }
 
 })
 
+//Metodo Get para buscar juegos
+router.get("/:id", async function (req, res) {
+  // res.render("findGame"); 
+  const id=req.params.id;
+  try{
+    const game = await Game.findById(id);
+    res.render("detailsGame", {game, error: false});  
+    // res.send(game)
+  }catch (error) {
+    console.error("Error: "+ error.message)
+     res.render("detailsGame", {error: true, mensaje: "No se encuentra el ID seleccionado" });  
+  }
+})
 
 
 

@@ -2,17 +2,20 @@
 <html lang="en">
   <%- include('./template/headHTML.ejs',{title: "DiceGame | Create Game"})%>
   <body>
+    <% if (!error) { %>
     <div
       class="mx-auto min-h-full w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div >
+      <div>
         <div
           class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
         >
           Game ID : <%=game._id %>
         </div>
       </div>
-      <table class="flex-row min-w-full leading-normal justify-center items-center">
+      <table
+        class="flex-row min-w-full leading-normal justify-center items-center"
+      >
         <thead>
           <tr>
             <th
@@ -67,14 +70,38 @@
         <span class="relative">In Progress: <%= game.inProgress %> </span>
       </div>
 
-  
-      <div class="bg-gray-100 px-4 py-3 text-right sm:px-6 flex justify-center w-3/5 mx-auto my-10">
+      <div
+        class="bg-gray-100 px-4 py-3 text-right sm:px-6 flex justify-center w-3/5 mx-auto my-10"
+      >
+      <% if (game.inProgress) { %>
         <button
           type="button"
           class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          onclick="playGame(game._id)">Play Game</button>
+          onclick="playGame(game._id)"
+        >
+          Play Game
+        </button>
+      <% }else{ %>
+        <a
+          href="/"
+          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          View Winner
+        </a>
+      <% } %>
+       
       </div>
     </div>
+    <% }else { %>
+    <div class="bg-red-200 p-3">Something went wrong</div>
+    <a
+          href="/"
+          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          Go Index
+    </a>
+
+    <% } %>
     <div class="flex-shrink-0 flex items-center justify-center py-6">
       <img
         class="block lg:hidden h-40 w-40"
