@@ -57,7 +57,7 @@ router.post("/createGame",async (req,res)=>{
 
     var game = new Game({
       gamers: [player1, player2, player3],
-      inProgress: false,
+      inProgress: true,
     });
 
     await game.save(function (err, game) {
