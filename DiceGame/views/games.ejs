@@ -10,6 +10,7 @@
               <div
                 class="mx-auto min-h-full flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
               >
+              <% if (arrayGames.length > 0) { %> 
                 <table class="min-w-full leading-normal">
                   <thead>
                     <tr>
@@ -45,9 +46,8 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <% if (gamesData.length > 0) { %> <%
-                    gamesData.forEach(element => { %>
+                  <tbody>      
+                    <% arrayGames.forEach(element => { %>
                     <tr>
                       <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
@@ -97,9 +97,12 @@
                         </span>
                       </td>
                     </tr>
-                    <% }) %> <% } %>
+                    <% }) %> 
                   </tbody>
                 </table>
+                <% }else { %>
+                  <div class="bg-red-200 p-3">There no data</div>
+                <% } %> 
               </div>
             </div>
           </div>

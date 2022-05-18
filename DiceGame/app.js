@@ -5,7 +5,11 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
+//Configuración de paquete .env
 require("dotenv").config();
+
+//configuración puerto para despliegue
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -19,14 +23,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-//Web Routes 
-const gamesRouter = require("./routes/games");
+//Web Routes
+// const gamesRouter = require("./routes/games");
 
 //rutas
 app.use("/", require("./routes/index"));
-app.use("/createGame", require("./routes/createGame"));
-app.use("/games", gamesRouter);
-app.use("/findGame", gamesRouter);
+app.use("/api", require("./routes/games"));
+
+// app.use("/games", gamesRouter);
+// app.use("/findGame", gamesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,6 +56,6 @@ const uriSRV = `mongodb+srv://${process.env.USERMDB}:${process.env.PASSWORD}@clu
 mongoose
   .connect(uriSRV, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("Error connecting to MongoDB ",uriSRV ))
+  .catch((err) => console.log("Error connecting to MongoDB ", uriSRV));
 
 module.exports = app;

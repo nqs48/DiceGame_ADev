@@ -4,7 +4,7 @@ var gameCtrl = require("../controllers/games");
 var main = require("../public/javascripts/app");
 
 
-router.route("/").get(gameCtrl.getAddGame).post(gameCtrl.addGame);
+// router.route("/").get(gameCtrl.getAddGame).post(gameCtrl.addGame);
 
 
 function playGame(idGame) {
