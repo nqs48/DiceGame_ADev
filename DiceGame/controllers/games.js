@@ -40,7 +40,12 @@ exports.findAllGames = function (req, res) {
 //   });
 // });
 
-
+exports.getUpdatedGame = function (req, res) {
+  res.render("playGame", {
+    content: "This is a dice game, for three players",
+    title: "Create Game",
+  });
+};
 
 
 
@@ -50,21 +55,22 @@ exports.findAllGames = function (req, res) {
 
 // GET - Return a game with specified ID
 exports.findById = function (req, res) {
-  Game.findById(req.params.id, function (err, gameId) {
-    if (err) return res.send(500, err.message);
+  res.render("findGame")
+  // Game.findById(req.params.id, function (err, gameId) {
+  // //   if (err) return res.send(500, err.message);
 
-    console.log("GET /game/" + gameId);
-    res.render("games", {
-      gamesData,
-      title: "Lista de jugadores",
-    });
-    res.status(200).jsonp(gameId);
-  });
+  //   // console.log("GET /game/" + gameId);
+  //   // res.render("findGame", {
+  //   //   gamesData,
+  //   //   title: "Lista de jugadores",
+  //   // });
+  //   res.status(200).jsonp(gameId);
+  // });
 };
 
 
 
-// GET - Returns current created game
+// GET - Returns current created game  // Método Get para crear Juego Formulario Vacio
 exports.getAddGame = function (req, res) {
     res.render("createGame", {
       content: "This is a dice game, for three players",
@@ -72,23 +78,11 @@ exports.getAddGame = function (req, res) {
   });
 }
 
-exports.getUpdatedGame = function (req, res) {
-  res.render("playGame", {
-    content: "This is a dice game, for three players",
-    title: "Create Game",
-  });
-};
 
 
-// POST - Insert a new game in the DB
+
+// POST - Insert a new game in the DB // Método Post para crear Juego Formulario diligenciado
 exports.addGame = function (req, res) {
-//  console.log("POST");
-//  console.group("Data:")
-//  console.log(req.body.nameP1)
-//  console.log(req.body.nameP2)
-//  console.log(req.body.nameP3);
-//  console.groupEnd();
-//  //Imprime los datos Enviados
 
   var player1 = new Player({
     name: req.body.nameP1,
@@ -105,6 +99,10 @@ exports.addGame = function (req, res) {
     age: req.body.ageP3,
     score: 0,
   });
+  player1.save();
+  player2.save();
+  player3.save();
+
 
   var game = new Game({
     gamers: [player1,player2,player3],

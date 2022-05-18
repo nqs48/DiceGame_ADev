@@ -19,14 +19,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-//ROUTES
-const indexRouter = require("./routes/index");
-const createGameRouter = require("./routes/createGame");
+//Web Routes 
 const gamesRouter = require("./routes/games");
 
 //rutas
-app.use("/", indexRouter);
-app.use("/createGame", createGameRouter);
+app.use("/", require("./routes/index"));
+app.use("/createGame", require("./routes/createGame"));
 app.use("/games", gamesRouter);
 app.use("/findGame", gamesRouter);
 

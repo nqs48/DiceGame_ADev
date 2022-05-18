@@ -2,13 +2,13 @@
 <html lang="en">
   <%- include('./template/headHTML.ejs',{title: "DiceGame | Games"})%>
   <body>
-    <div class="h-screen flex justify-center p-10">
+    <div class="flex justify-center p-10">
       <div class="bg-white p-8 rounded-md w-full">
-        <div class="flex items-center justify-between pb-6">
+        <div class="flex items-center justify-center pb-6">
           <div>
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
               <div
-                class="inline-block min-w-full shadow rounded-lg overflow-hidden"
+                class="mx-auto min-h-full flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
               >
                 <table class="min-w-full leading-normal">
                   <thead>
@@ -46,8 +46,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% if (gamesData.length > 0) { %> 
-                      <% gamesData.forEach(element => { %>
+                    <% if (gamesData.length > 0) { %> <%
+                    gamesData.forEach(element => { %>
                     <tr>
                       <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
@@ -63,19 +63,23 @@
                       <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
                       >
-                        <p class="text-gray-900 whitespace-no-wrap"><%= element.gamers[0].name %> </p>
-                      </td>
-                      <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                      >
                         <p class="text-gray-900 whitespace-no-wrap">
-                          <%= element.gamers[1].name %> 
+                          <%= element.gamers[0].name %>
                         </p>
                       </td>
                       <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
                       >
-                        <p class="text-gray-900 whitespace-no-wrap"><%= element.gamers[2].name %> </p>
+                        <p class="text-gray-900 whitespace-no-wrap">
+                          <%= element.gamers[1].name %>
+                        </p>
+                      </td>
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <p class="text-gray-900 whitespace-no-wrap">
+                          <%= element.gamers[2].name %>
+                        </p>
                       </td>
                       <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
@@ -87,7 +91,9 @@
                             aria-hidden
                             class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                           ></span>
-                          <span class="relative"><%= element.inProgress %> </span>
+                          <span class="relative"
+                            ><%= element.inProgress %>
+                          </span>
                         </span>
                       </td>
                     </tr>
