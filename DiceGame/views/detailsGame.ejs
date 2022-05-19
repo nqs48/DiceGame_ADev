@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./template/headHTML.ejs',{title: "DiceGame | Create Game"})%>
+  <%- include('./template/headHTML.ejs',{title: "DiceGame | Details Game"})%>
   <body>
     <% if (!error) { %>
     <div
@@ -75,7 +75,7 @@
       >
       <% if (game.inProgress) { %>
         <a
-          href="/api"
+          href="/api/<%=game._id %> "
           class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           Play Game
@@ -97,7 +97,7 @@
           href="/"
           class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
-          Go Index
+          Go Main
     </a>
 
     <% } %>

@@ -28,7 +28,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //rutas
 app.use("/", require("./routes/index"));
-app.use("/api", require("./routes/games"));
+app.use("/createGame", require("./routes/createGame"));
+app.use("/game", require("./routes/game"));
+
 
 // app.use("/games", gamesRouter);
 // app.use("/findGame", gamesRouter);
