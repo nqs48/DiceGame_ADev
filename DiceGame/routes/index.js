@@ -11,12 +11,4 @@ router.get('/', function(req, res, next) {
   });
 });
 
-
-// router.get("/prueba", function (req, res, next) {
-//   res.render("index", {
-//     content: "This is a dice game, for three players",
-//     title: "🎲  DiceGame | ADev",
-//   });
-// });
-
 module.exports = router;
