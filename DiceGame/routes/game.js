@@ -23,21 +23,19 @@ router.get("/:id", async function (req, res) {
 });
 
 //Metodo para eliminar juegos
-router.get("/:id", async (req, res) => {
+router.get("/:id", async function (req, res) {
   const id = req.params.id;
+  console.log(id)
   try {
+
     const game = await Game.findByIdAndDelete(id);
-    if (game) {
-      res.json({
-        status: true,
-        message: "The game has been delete!!",
-      });
-    } else {
-      res.json({
-        status: false,
-        message: "Something went wrong!!",
-      });
-    }
+    res.render("confirmation",{game, estado:" Eliminado" })
+    // if (game) {
+    //   res.send("Game deleted!!");
+    // } else {
+    //   res.send("Something went wrong!!");
+    // }
+
   } catch (err) {
     console.log(err);
   }

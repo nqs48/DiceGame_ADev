@@ -18,4 +18,14 @@ router.get("/", async function (req, res) {
   }
 });
 
+router.get("/test", (req, res) => {
+  res.send("Ok get");
+});
+
+router.post("/test", (req, res) => {
+  // res.send(req.body.id);
+  const body = req.body;
+  console.log("CONSOLE DIRECT:", req.body.id);
+});
+
 module.exports = router;

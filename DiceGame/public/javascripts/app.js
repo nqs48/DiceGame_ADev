@@ -1,3 +1,5 @@
+// const { Document } = require("mongoose");
+
 function randomNumbers() {
   const numberMax = 6,
     numberMin = 1;
@@ -18,6 +20,4 @@ function randomNumbers() {
 
 
 
-module.exports = {randomNumbers};
-
-
+// module.exports = { randomNumbers, playGame };

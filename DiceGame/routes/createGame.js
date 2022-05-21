@@ -30,9 +30,9 @@ router.post("/", async (req, res) => {
       age: req.body.ageP3,
       score: 0,
     });
-    player1.save();
-    player2.save();
-    player3.save();
+    // player1.save();
+    // player2.save();
+    // player3.save();
 
     var game = new Game({
       gamers: [player1, player2, player3],

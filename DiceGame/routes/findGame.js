@@ -9,8 +9,6 @@ router.get("/", async (req, res)=>{
   res.render("findGame")
 })
 
-
-
 router.get("/:id", async function (req, res) {
   const id = req.body.id;
   try {
