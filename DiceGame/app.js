@@ -26,10 +26,13 @@ app.use(express.static(path.join(__dirname, "public")));
 //Web Routes
 // const gamesRouter = require("./routes/games");
 
-//rutas
+//Routes
 app.use("/", require("./routes/index"));
 app.use("/createGame", require("./routes/createGame"));
+app.use("/findGame", require("./routes/findGame"));
 app.use("/game", require("./routes/game"));
+app.use("/games", require("./routes/games"));
+
 
 
 // app.use("/games", gamesRouter);

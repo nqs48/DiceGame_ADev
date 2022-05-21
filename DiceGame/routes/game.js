@@ -4,26 +4,6 @@ var gameCtrl = require("../controllers/games");
 var Game = require("../models/game");
 var Player = require("../models/player");
 
-router.get("/", function (req, res, next) {
-  res.send("Estamos en /game")
-  });
-
-
-router.get("/all", async function (req, res) {
-  try {
-    const arrayGames = await Game.find();
-    console.group("Games");
-    console.log(arrayGames);
-    console.groupEnd();
-    res.render("games", {
-      arrayGames,
-      title: "Lista de jugadores",
-    });
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 
 //Metodo Get para buscar juegos
 router.get("/:id", async function (req, res) {
