@@ -2,13 +2,12 @@
 <html lang="en">
   <%- include('./template/headHTML.ejs',{title: "DiceGame | Find Game"})%>
   <body>
-    <%- include('./components/header.ejs')%>
     <div>
       <form class="m-4 flex">
         <label for="gameID" class="sr-only">Game ID</label>
         <input
           id="gameID"
-          name="gameID"
+          name="id"
           type="text"
           autocomplete="given-name"
           required
