@@ -24,7 +24,7 @@ var gameSchema = new Schema(
       required: false,
     },
     winner: {
-      type: String,
+      type: playerSchema,
       required: false,
     },
     date: { type: Date, default: Date.now },

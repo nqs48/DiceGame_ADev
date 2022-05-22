@@ -36,7 +36,8 @@ router.post("/", async (req, res) => {
 
     var game = new Game({
       gamers: [player1, player2, player3],
-      inProgress: false,
+      inProgress: true,
+      winner: null
     });
 
     await game.save(function (err, game) {

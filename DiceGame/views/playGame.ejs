@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎲 Dice Game</title>
-  <link href="/stylesheets/styles.css" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎲 Dice Game</title>
+    <link href="/stylesheets/styles.css" rel="stylesheet" />
+  </head>
   <body>
     <nav class="bg-gradient-to-r from-fuchsia-700/30 to-green-400">
       <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -59,6 +61,7 @@
           </div>
         </div>
       </div>
+
       <!-- Mobile menu, show/hide based on menu state. -->
       <div class="sm:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1">
@@ -80,70 +83,28 @@
           <a
             href="/findGame"
             class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Find Games</a
+            >Find Game</a
           >
 
           <a
-            href="/game/all"
+            href="/games"
             class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Winners</a
+            >Games</a
           >
         </div>
       </div>
     </nav>
 
-    <div class="h-screen flex justify-center p-10">
-      <div class="relative h-[65rem] sm:h-96 w-[65rem] rounded-lg">
-        <!-- Background Image -->
-        <img
-          src="https://res.cloudinary.com/adev48/image/upload/v1652676095/Sofka%20Assets/Semana%204/happiness-g5f5bf55e7_1920_wwrdw3.jpg"
-          class="object-cover w-full h-full rounded-lg"
-        />
-
-        <!-- Content -->
-        <div
-          class="absolute w-full h-full bottom-0 bg-gradient-to-r from-fuchsia-700/30 to-green-400 rounded-lg flex flex-col items-center justify-center text-center"
-        >
-          <!-- Company Logo -->
-          <img
-            class="block lg:hidden h-40 w-40"
-            src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-            alt="Workflow"
-          />
-          <img
-            class="hidden lg:block h-40 w-40"
-            src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-            alt="Workflow"
-          />
-
-          <!-- Quotes -->
-          <p class="text-lg px-14 text-gray-300 mt-10">
-            GitHub helps us ensure that we have our security controls baked into
-            our pipelines all the way from the first line of code we’re writing.
-          </p>
-
-          <!-- Photo -->
-
-          <!-- Title -->
-          <p class="text-base font-bold px-14 text-gray-300 mt-3">
-            Chief Information Security Officer
-          </p>
-
-          <p class="text-sm font-light px-14 text-gray-300">Dow Jones</p>
-        </div>
-      </div>
+    <div class="w-screen bg-gray-50 flex justify-center">
+      <p><%= content %></p>
     </div>
-    <!-- <div class="flex-shrink-0 flex items-center justify-center py-6">
-      <img
-        class="block lg:hidden h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-      <img
-        class="hidden lg:block h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-    </div>  -->
+
+    <div class="w-screen bg-gray-50 flex justify-center mt-10">
+      <a
+        href="/"
+        class="px-5 inline py-3 text-sm font-medium leading-5 shadow-2xl text-white transition-all duration-400 border border-transparent rounded-lg focus:outline-none bg-green-600 active:bg-red-600 hover:bg-red-700"
+        >back to homepage</a
+      >
+    </div>
   </body>
 </html>

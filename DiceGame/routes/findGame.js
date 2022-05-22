@@ -10,11 +10,11 @@ router.get("/", async (req, res)=>{
 })
 
 router.get("/:id", async function (req, res) {
-  const id = req.body.id;
+  const id = req.params.id;
+  console.log("Consola de back: ", id);
   try {
     const game = await Game.findById(id);
     res.render("detailsGame", { game, error: false });
-    // res.send(game)
   } catch (error) {
     console.error("Error: " + error.message);
     res.render("detailsGame", {

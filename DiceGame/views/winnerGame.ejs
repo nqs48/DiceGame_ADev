@@ -102,7 +102,7 @@
         <div
           class="px-5 py-3 border-b-2 border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
         >
-          Game ID : <%=game._id %>
+          Game ID : <%= game._id %>
         </div>
       </div>
       <table
@@ -113,7 +113,7 @@
             <th
               class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
             >
-              Id Players
+              Id Player
             </th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
@@ -133,30 +133,30 @@
           </tr>
         </thead>
         <tbody>
-          <% if (game.gamers.length > 0) { %> <% game.gamers.forEach(element =>
-          { %>
           <tr>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <div class="flex items-center">
                 <div class="ml-3">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    <%= element._id %>
+                    <%= game.winner._id %>
                   </p>
                 </div>
               </div>
             </td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <p class="text-gray-900 whitespace-no-wrap">
-                <%= element.name %>
+                <%= game.winner.name %>
               </p>
             </td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <p class="text-gray-900 whitespace-no-wrap"><%= element.age %></p>
+              <p class="text-gray-900 whitespace-no-wrap">
+                <%= game.winner.age %>
+              </p>
             </td>
-            <% if (element.score != 0) { %>
+            <% if (game.winner.score != 0) { %>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <p class="text-gray-900 whitespace-no-wrap">
-                <%= element.score %>
+                <%= game.winner.score %>
               </p>
             </td>
             <% }else{ %>
@@ -165,65 +165,31 @@
             </td>
             <% } %>
           </tr>
-          <% }) %> <% } %>
         </tbody>
       </table>
       <div
-        class="relative flex justify-center px-3 py-1 font-semibold text-green-900 leading-tight"
+        class="relative flex justify-center px-3 py-1 font-semibold text-yellow-800 leading-tight"
       >
-        <% if (game.inProgress) { %>
         <span
           aria-hidden
-          class="absolute inset-0 bg-green-200 opacity-50 rounded-b-lg"
+          class="absolute inset-0 bg-yellow-200 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative">In Progress: <%= game.inProgress %> </span>
-        <% }else{ %>
-        <span
-          aria-hidden
-          class="absolute inset-0 bg-gray-200 opacity-50 rounded-b-lg"
-        ></span>
-        <span class="relative">In Progress: <%= game.inProgress %> </span>
-        <% } %>
+        <span class="relative">Winner</span>
       </div>
 
       <div
-        class="bg-green-50 px-4 py-3 text-right sm:px-6 flex justify-between w-2/5 mx-auto my-10"
+        class="bg-green-50 px-4 py-3 text-right sm:px-6 flex justify-center w-2/5 mx-auto my-10"
       >
-        <% if (game.inProgress) { %>
-        <button
-          id="btnPlayGame"
-          data-id="<%=game._id %>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Play Game
-        </button>
-        <% }else{ %>
-        <button
-          id="btnPlayGame"
-          data-id="<%=game._id %>"
-          class="hidden justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Play Game
-        </button>
         <a
-          
-          href="/game/<%=game._id%>/winner"
+          href="/game/<%=game._id%>"
           class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
-          View Winner
+          Game Details
         </a>
-        <% } %>
-        <button
-          id="btnDeleteGame"
-          data-id="<%=game._id %>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700"
-        >
-          Delete Game
-        </button>
       </div>
     </div>
     <% }else { %>
-    <div class="bg-red-200 p-3"><%= content %> c</div>
+    <div class="bg-red-200 p-3">Something went wrong</div>
     <a
       href="/"
       class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
@@ -244,45 +210,5 @@
         alt="Workflow"
       />
     </div>
-    <script>
-      const btnDeleteGame = document.querySelector("#btnDeleteGame");
-
-      btnDeleteGame.addEventListener("click", async () => {
-        console.log("Go to Delete");
-        const id = btnDeleteGame.dataset.id;
-        console.log("id: ", id);
-        try {
-          const data = await fetch(`/deleteGame/${id}`);
-          const res = await data.json();
-          if (res.estado) {
-            //res.render("confirmation")
-            window.location.href = "/games";
-          } else {
-            console.log(res);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      });
-
-      const btnPlayGame = document.querySelector("#btnPlayGame");
-      btnPlayGame.addEventListener("click", async () => {
-        console.log("Go to play and override");
-        const id = btnPlayGame.dataset.id;
-        console.log("id: ", id);
-        try {
-          const data = await fetch(`/startGame/${id}`, { method: "PUT" });
-          const res = await data.json();
-          if (res.estado) {
-            alert("Game played successfully!!");
-            window.location.href = `/game/${id}`;
-          } else {
-            console.log(res);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      });
-    </script>
   </body>
 </html>
