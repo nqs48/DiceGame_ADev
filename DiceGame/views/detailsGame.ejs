@@ -8,14 +8,13 @@
     <link href="../public/styles.css" rel="stylesheet" />
   </head>
   <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
-    <%- include('components/header'); %>
-    <% if (!error) { %>
+    <%- include('components/header'); %> <% if (!error) { %>
     <div
-      class="mx-auto min-h-full w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+      class="h-4/5 mx-auto w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div>
+      <div class="">
         <div
-          class="px-5 py-3 border-b-2 border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+          class="px-5 py-3 border-b-2 rounded-t-md border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
         >
           Game ID : <%=game._id %>
         </div>
@@ -76,7 +75,7 @@
             </td>
             <% }else{ %>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">n/a</p>
+              <p class="text-gray-900 whitespace-no-wrap">-</p>
             </td>
             <% } %>
           </tr>
@@ -84,31 +83,31 @@
         </tbody>
       </table>
       <div
-        class="relative flex justify-center px-3 py-1 font-semibold text-green-900 leading-tight"
+        class="relative flex justify-center px-3 py-1 font-semibold  leading-tight"
       >
         <% if (game.inProgress) { %>
         <span
           aria-hidden
-          class="absolute inset-0 bg-green-200 opacity-50 rounded-b-lg"
+          class="absolute inset-0 bg-green-300 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative">In Progress: <%= game.inProgress %> </span>
+        <span class="relative text-green-800">In Progress: <%= game.inProgress %> </span>
         <% }else{ %>
         <span
           aria-hidden
           class="absolute inset-0 bg-gray-200 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative">In Progress: <%= game.inProgress %> </span>
+        <span class="relative text-gray-800">In Progress: <%= game.inProgress %> </span>
         <% } %>
       </div>
 
       <div
-        class="bg-green-50 px-4 py-3 text-right sm:px-6 flex justify-between w-2/5 mx-auto my-10"
+        class="px-4 py-3 text-right sm:px-6 flex justify-between w-2/5 mx-auto my-10"
       >
         <% if (game.inProgress) { %>
         <button
           id="btnPlayGame"
           data-id="<%=game._id %>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          class="group justify-center relative w-2/5 py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Play Game
         </button>
@@ -116,14 +115,13 @@
         <button
           id="btnPlayGame"
           data-id="<%=game._id %>"
-          class="hidden justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          class="hidden group justify-center relative w-2/5 py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Play Game
         </button>
         <a
-          
           href="/winnerGame/<%=game._id%>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           View Winner
         </a>
@@ -131,7 +129,7 @@
         <button
           id="btnDeleteGame"
           data-id="<%=game._id %>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700"
+          class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-red-400 active:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Delete Game
         </button>
@@ -141,25 +139,12 @@
     <div class="bg-red-200 p-3"><%= content %> c</div>
     <a
       href="/"
-      class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
     >
       Go Main
     </a>
 
-    <% } %>
-    <div class="flex-shrink-0 flex items-center justify-center py-6">
-      <img
-        class="block lg:hidden h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-      <img
-        class="hidden lg:block h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-    </div>
-    <%- include('components/footer'); %>
+    <% } %> <%- include('components/footer'); %>
     <script>
       const btnDeleteGame = document.querySelector("#btnDeleteGame");
 
