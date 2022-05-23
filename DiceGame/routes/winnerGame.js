@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var gameCtrl = require("../controllers/games");
+// var gameCtrl = require("../controllers/games");
 var Game = require("../models/game");
 var Player = require("../models/player");
 

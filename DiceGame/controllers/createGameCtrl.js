@@ -1,25 +1,121 @@
-//File: controllers/tvshows.js
 var mongoose = require("mongoose");
 var Game = require("../models/game");
 var Player = require("../models/player");
-var main=require("../public/javascripts/app")
 
 
-// GET - Return all games in the DB
-// exports.findAllGames = function (req, res) {
-//   Game.find(function (err, gamesData) {
-//     if (err) res.send(500, err.message);
 
-//     console.log("GET /games");
-//     res.status(200)
-//     res.render("games", {
-//       gamesData,
-//       title: "Lista de jugadores",
+
+exports.getCreateGame = (req, res) => {
+try {
+  res.status(200).render("createGame",{title: " Create Game"});
+} catch (error) {
+  res.status(500).render("error",error)
+}
+};
+
+exports.postCreateGame= async (req, res) => {
+  const body = req.body;
+  try {
+    var player1 = new Player({
+      name: body.nameP1,
+      age: body.ageP1,
+      score: 0,
+    });
+    var player2 = new Player({
+      name: body.nameP2,
+      age: body.ageP2,
+      score: 0,
+    });
+    var player3 = new Player({
+      name: req.body.nameP3,
+      age: req.body.ageP3,
+      score: 0,
+    });
+
+    var game = new Game({
+      gamers: [player1, player2, player3],
+      inProgress: true,
+      winner: null,
+    });
+
+    await game.save(function (err, game) {
+      try {
+        res.render("detailsGame", {
+          game,
+          error: false,
+        });
+      } catch (error) {
+        res.render("detailsGame", {
+          game,
+          error: true,
+        });
+      }
+    });
+  } catch (error) {
+    res.render("detailsGame", {
+      game,
+      error: true,
+    });
+  }
+}
+
+
+
+
+
+// router.post("/", async (req, res) => {
+//   const body = req.body;
+//   try {
+//     var player1 = new Player({
+//       name: body.nameP1,
+//       age: body.ageP1,
+//       score: 0,
 //     });
-//     // res.status(200).jsonp(gamesData);
-//     console.log(gamesData);
-//   });
-// };
+//     var player2 = new Player({
+//       name: body.nameP2,
+//       age: body.ageP2,
+//       score: 0,
+//     });
+//     var player3 = new Player({
+//       name: req.body.nameP3,
+//       age: req.body.ageP3,
+//       score: 0,
+//     });
+//     // player1.save();
+//     // player2.save();
+//     // player3.save();
+
+//     var game = new Game({
+//       gamers: [player1, player2, player3],
+//       inProgress: true,
+//       winner: null,
+//     });
+
+//     await game.save(function (err, game) {
+//       if (err) {
+//         return res.status(500).send(err.message);
+//       } else {
+//         res.render("detailsGame", {
+//           game,
+//           error: false,
+//         });
+//         // res.send(game);
+//         res.status(200);
+//         // console.log(game);
+//       }
+//     });
+//   } catch (error) {
+//     res.render("detailsGame", {
+//       game,
+//       error: true,
+//     });
+//     console.error("Error: " + error.message);
+//   }
+// });
+
+
+
+
 
 
 // /* GET users listing. */

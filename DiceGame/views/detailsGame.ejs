@@ -136,7 +136,7 @@
       </div>
     </div>
     <% }else { %>
-    <div class="bg-red-200 p-3"><%= content %> c</div>
+    <div class="bg-white text-red-400 p-5"><%= content %> </div>
     <a
       href="/"
       class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
@@ -157,6 +157,7 @@
           const res = await data.json();
           if (res.estado) {
             //res.render("confirmation")
+            alert("The game was delete!!")
             window.location.href = "/games";
           } else {
             console.log(res);
@@ -176,7 +177,7 @@
           const res = await data.json();
           if (res.estado) {
             alert("Game played successfully!!");
-            window.location.href = `/game/${id}`;
+            window.location.href = `/findGame/${id}`;
           } else {
             console.log(res);
           }

@@ -34,7 +34,6 @@ app.use("/findGame", require("./routes/findGame"));
 app.use("/deleteGame", require("./routes/deleteGame"));
 app.use("/startGame", require("./routes/startGame"));
 app.use("/winnerGame", require("./routes/winnerGame"));
-app.use("/game", require("./routes/game"));
 app.use("/games", require("./routes/games"));
 
 // app.use("/games", gamesRouter);
