@@ -1,4 +1,4 @@
-const {Schema, model}= require("mongoose");
+const { Schema, model } = require("mongoose");
 
 playerSchema = new Schema({
   name: { type: String, trim: true, required: [true, "El valor es requerido"] },
@@ -6,7 +6,6 @@ playerSchema = new Schema({
   score: { type: Number, trim: true, required: false },
 });
 
-
-const Player = model("Player", playerSchema, "Players");
+const Player = model("Player", playerSchema);
 
 module.exports = Player;

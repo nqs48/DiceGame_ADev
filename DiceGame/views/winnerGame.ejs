@@ -1,106 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link href="../public/styles.css" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎲 Dice Game</title>
-    <link href="/stylesheets/styles.css" rel="stylesheet" />
+    <title>🎲 DiceGame | Winner Game</title>
   </head>
-  <body>
-    <nav class="bg-gradient-to-r from-fuchsia-700/30 to-green-400">
-      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div class="relative flex items-center justify-between h-28">
-          <div
-            class="absolute inset-y-0 left-0 flex items-center sm:hidden"
-          ></div>
-          <div class="flex-1 flex items-center justify-center">
-            <a href="/">
-              <div class="flex-shrink-0 flex items-center">
-                <img
-                  class="block lg:hidden h-8 w-auto"
-                  src="https://res.cloudinary.com/adev48/image/upload/v1652572560/Sofka%20Assets/Semana%204/dice_xxdudh.png"
-                  alt="Workflow"
-                />
-                <img
-                  class="hidden lg:block h-20 w-20"
-                  src="https://res.cloudinary.com/adev48/image/upload/v1652572560/Sofka%20Assets/Semana%204/dice_xxdudh.png"
-                  alt="Workflow"
-                />
-              </div>
-            </a>
-
-            <div class="hidden sm:block sm:ml-6">
-              <div class="flex space-x-4">
-                <a
-                  href="/createGame"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  aria-current="page"
-                  >Create Game</a
-                >
-
-                <a
-                  href="/error"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Players</a
-                >
-
-                <a
-                  href="/findGame"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Find Game</a
-                >
-
-                <a
-                  href="/games"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Games</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="sm:hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a
-            href="/createGame"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            aria-current="page"
-            >Create Game</a
-          >
-
-          <a
-            href="/error"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Players</a
-          >
-
-          <a
-            href="/findGame"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Find Game</a
-          >
-
-          <a
-            href="/games"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Games</a
-          >
-        </div>
-      </div>
-    </nav>
+  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
+     <%- include('components/header'); %>
     <% if (!error) { %>
     <div
-      class="mx-auto min-h-full w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+      class="mx-auto h-4/5 w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
       <div>
         <div
-          class="px-5 py-3 border-b-2 border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+          class="px-5 py-3 border-b-2 border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-t-lg"
         >
           Game ID : <%= game._id %>
         </div>
@@ -168,47 +83,38 @@
         </tbody>
       </table>
       <div
-        class="relative flex justify-center px-3 py-1 font-semibold text-yellow-800 leading-tight"
+        class="relative flex justify-center px-3 py-1 font-semibold text-white leading-tight"
       >
         <span
           aria-hidden
-          class="absolute inset-0 bg-yellow-200 opacity-50 rounded-b-lg"
+          class="absolute inset-0 bg-yellow-300 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative">Winner</span>
+        <span class="relative">Winner 🥇</span>
       </div>
 
       <div
-        class="bg-green-50 px-4 py-3 text-right sm:px-6 flex justify-center w-2/5 mx-auto my-10"
+        class="px-4 py-3 text-right sm:px-6 flex justify-center w-2/5 mx-auto my-10 rounded-lg"
       >
         <a
-          href="/game/<%=game._id%>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          href="/findGame/<%=game._id%>"
+          class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Game Details
         </a>
       </div>
+      <%- include('components/diceCont'); %>
     </div>
     <% }else { %>
-    <div class="bg-red-200 p-3">Something went wrong</div>
+    <div class="bg-white text-red-400 p-5"><%= content %> </div>
     <a
       href="/"
-      class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
     >
       Go Main
     </a>
 
     <% } %>
-    <div class="flex-shrink-0 flex items-center justify-center py-6">
-      <img
-        class="block lg:hidden h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-      <img
-        class="hidden lg:block h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-    </div>
+
+    <%- include('components/footer'); %>
   </body>
 </html>

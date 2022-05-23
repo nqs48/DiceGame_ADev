@@ -21,7 +21,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+
+app.use('/public',express.static("public"));
 
 //Web Routes
 // const gamesRouter = require("./routes/games");
@@ -32,8 +33,7 @@ app.use("/createGame", require("./routes/createGame"));
 app.use("/findGame", require("./routes/findGame"));
 app.use("/deleteGame", require("./routes/deleteGame"));
 app.use("/startGame", require("./routes/startGame"));
-// app.use("/winnerGame", require("./routes/winnerGame"));
-app.use("/game", require("./routes/game"));
+app.use("/winnerGame", require("./routes/winnerGame"));
 app.use("/games", require("./routes/games"));
 
 // app.use("/games", gamesRouter);

@@ -4,103 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎲 Dice Game</title>
-    <link href="/stylesheets/styles.css" rel="stylesheet" />
+    <title>🎲 DiceGame | Details Game</title>
+    <link href="../public/styles.css" rel="stylesheet" />
   </head>
-  <body>
-    <nav class="bg-gradient-to-r from-fuchsia-700/30 to-green-400">
-      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div class="relative flex items-center justify-between h-28">
-          <div
-            class="absolute inset-y-0 left-0 flex items-center sm:hidden"
-          ></div>
-          <div class="flex-1 flex items-center justify-center">
-            <a href="/">
-              <div class="flex-shrink-0 flex items-center">
-                <img
-                  class="block lg:hidden h-8 w-auto"
-                  src="https://res.cloudinary.com/adev48/image/upload/v1652572560/Sofka%20Assets/Semana%204/dice_xxdudh.png"
-                  alt="Workflow"
-                />
-                <img
-                  class="hidden lg:block h-20 w-20"
-                  src="https://res.cloudinary.com/adev48/image/upload/v1652572560/Sofka%20Assets/Semana%204/dice_xxdudh.png"
-                  alt="Workflow"
-                />
-              </div>
-            </a>
-
-            <div class="hidden sm:block sm:ml-6">
-              <div class="flex space-x-4">
-                <a
-                  href="/createGame"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  aria-current="page"
-                  >Create Game</a
-                >
-
-                <a
-                  href="/error"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Players</a
-                >
-
-                <a
-                  href="/findGame"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Find Game</a
-                >
-
-                <a
-                  href="/games"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Games</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="sm:hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a
-            href="/createGame"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            aria-current="page"
-            >Create Game</a
-          >
-
-          <a
-            href="/error"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Players</a
-          >
-
-          <a
-            href="/findGame"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Find Game</a
-          >
-
-          <a
-            href="/games"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Games</a
-          >
-        </div>
-      </div>
-    </nav>
-    <% if (!error) { %>
+  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
+    <%- include('components/header'); %> <% if (!error) { %>
     <div
-      class="mx-auto min-h-full w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+      class="h-4/5 mx-auto w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div>
+      <div class="">
         <div
-          class="px-5 py-3 border-b-2 border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+          class="px-5 py-3 border-b-2 rounded-t-md border-gray-200 bg-yellow-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
         >
           Game ID : <%=game._id %>
         </div>
@@ -161,7 +75,7 @@
             </td>
             <% }else{ %>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">n/a</p>
+              <p class="text-gray-900 whitespace-no-wrap">-</p>
             </td>
             <% } %>
           </tr>
@@ -169,31 +83,35 @@
         </tbody>
       </table>
       <div
-        class="relative flex justify-center px-3 py-1 font-semibold text-green-900 leading-tight"
+        class="relative flex justify-center px-3 py-1 font-semibold leading-tight"
       >
         <% if (game.inProgress) { %>
         <span
           aria-hidden
-          class="absolute inset-0 bg-green-200 opacity-50 rounded-b-lg"
+          class="absolute inset-0 bg-green-300 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative">In Progress: <%= game.inProgress %> </span>
+        <span class="relative text-green-800"
+          >In Progress: <%= game.inProgress %>
+        </span>
         <% }else{ %>
         <span
           aria-hidden
           class="absolute inset-0 bg-gray-200 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative">In Progress: <%= game.inProgress %> </span>
+        <span class="relative text-gray-800"
+          >In Progress: <%= game.inProgress %>
+        </span>
         <% } %>
       </div>
 
       <div
-        class="bg-green-50 px-4 py-3 text-right sm:px-6 flex justify-between w-2/5 mx-auto my-10"
+        class="px-4 py-3 text-right sm:px-6 flex justify-between w-2/5 mx-auto my-10"
       >
         <% if (game.inProgress) { %>
         <button
           id="btnPlayGame"
           data-id="<%=game._id %>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          class="group justify-center relative w-2/5 py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Play Game
         </button>
@@ -201,14 +119,13 @@
         <button
           id="btnPlayGame"
           data-id="<%=game._id %>"
-          class="hidden justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          class="hidden group justify-center relative w-2/5 py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Play Game
         </button>
         <a
-          
-          href="/game/<%=game._id%>/winner"
-          class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          href="/winnerGame/<%=game._id%>"
+          class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           View Winner
         </a>
@@ -216,34 +133,30 @@
         <button
           id="btnDeleteGame"
           data-id="<%=game._id %>"
-          class="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700"
+          class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-red-400 active:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
           Delete Game
         </button>
       </div>
     </div>
     <% }else { %>
-    <div class="bg-red-200 p-3"><%= content %> c</div>
-    <a
-      href="/"
-      class="inline-flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+    <div
+      class="h-4/5 mx-auto w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
-      Go Main
-    </a>
-
-    <% } %>
-    <div class="flex-shrink-0 flex items-center justify-center py-6">
-      <img
-        class="block lg:hidden h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-      <img
-        class="hidden lg:block h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
+      <div class="bg-white p-10 rounded-lg text-gray-600 flex justify-center w-2/5 m-auto">
+        <p><%= content %></p>
+      </div>
+      <div class="flex justify-center">
+        <a
+          href="/"
+          class="group relative w-1/5 flex justify-center py-3 mt-8 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+        >
+          Go HomePage
+        </a>
+      </div>
     </div>
+
+    <% } %> <%- include('components/footer'); %>
     <script>
       const btnDeleteGame = document.querySelector("#btnDeleteGame");
 
@@ -256,6 +169,7 @@
           const res = await data.json();
           if (res.estado) {
             //res.render("confirmation")
+            alert("The game was delete!!");
             window.location.href = "/games";
           } else {
             console.log(res);
@@ -273,9 +187,9 @@
         try {
           const data = await fetch(`/startGame/${id}`, { method: "PUT" });
           const res = await data.json();
-          if (res.estado) {
+          if (res.status) {
             alert("Game played successfully!!");
-            window.location.href = `/game/${id}`;
+            window.location.href = `/findGame/${id}`;
           } else {
             console.log(res);
           }

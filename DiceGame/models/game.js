@@ -1,22 +1,17 @@
 const {Schema, model} = require("mongoose");
-// var Player = require("./models/player");
 
 
-var playerSchema = new Schema({
+const playerSchema = new Schema({
   name: { type: String, trim: true, required: true },
   age: {
     type: Number,
     trim: true,
-    required: true,
-    min: [8, "La edad minima es de 8 años"],
-    max: [90, "La edad minima es de 8 años"],
+    required: true
   },
   score: { type: Number, trim: true, required: false },
 });
 
-
-
-var gameSchema = new Schema(
+const gameSchema = new Schema(
   {
     gamers: [playerSchema],
     inProgress: {
@@ -31,5 +26,6 @@ var gameSchema = new Schema(
   },
   { timestamps: true }
 );
+
 
 module.exports = model("Game", gameSchema, "Games");

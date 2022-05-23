@@ -1,99 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎲 Dice Game</title>
-  <link href="/stylesheets/styles.css" rel="stylesheet" />
-  <body>
-    <nav class="bg-gradient-to-r from-fuchsia-700/30 to-green-400">
-      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div class="relative flex items-center justify-between h-28">
-          <div
-            class="absolute inset-y-0 left-0 flex items-center sm:hidden"
-          ></div>
-          <div class="flex-1 flex items-center justify-center">
-            <a href="/">
-              <div class="flex-shrink-0 flex items-center">
-                <img
-                  class="block lg:hidden h-8 w-auto"
-                  src="https://res.cloudinary.com/adev48/image/upload/v1652572560/Sofka%20Assets/Semana%204/dice_xxdudh.png"
-                  alt="Workflow"
-                />
-                <img
-                  class="hidden lg:block h-20 w-20"
-                  src="https://res.cloudinary.com/adev48/image/upload/v1652572560/Sofka%20Assets/Semana%204/dice_xxdudh.png"
-                  alt="Workflow"
-                />
-              </div>
-            </a>
-
-            <div class="hidden sm:block sm:ml-6">
-              <div class="flex space-x-4">
-                <a
-                  href="/createGame"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  aria-current="page"
-                  >Create Game</a
-                >
-
-                <a
-                  href="/error"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Players</a
-                >
-
-                <a
-                  href="/findGame"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Find Game</a
-                >
-
-                <a
-                  href="/games"
-                  class="text-white hover:bg-green-800 hover:text-white px-10 py-6 rounded-md text-sm font-medium"
-                  >Games</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="sm:hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a
-            href="/createGame"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            aria-current="page"
-            >Create Game</a
-          >
-
-          <a
-            href="/error"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Players</a
-          >
-
-          <a
-            href="/findGame"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Find Games</a
-          >
-
-          <a
-            href="/game/all"
-            class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Winners</a
-          >
-        </div>
-      </div>
-    </nav>
-
-    <div class="h-screen flex justify-center p-10">
-      <div class="relative h-[65rem] sm:h-96 w-[65rem] rounded-lg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎲 DiceGame | A Dev </title>
+    <link href="../public/styles.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
+    <%- include('components/header'); %>
+    <div class="flex justify-center p-12 h-4/5">
+      <div class="relative h-[80rem] sm:h-96 w-[80rem] rounded-lg">
         <!-- Background Image -->
         <img
           src="https://res.cloudinary.com/adev48/image/upload/v1652676095/Sofka%20Assets/Semana%204/happiness-g5f5bf55e7_1920_wwrdw3.jpg"
@@ -102,7 +19,7 @@
 
         <!-- Content -->
         <div
-          class="absolute w-full h-full bottom-0 bg-gradient-to-r from-fuchsia-700/30 to-green-400 rounded-lg flex flex-col items-center justify-center text-center"
+          class="absolute w-full h-full bottom-0 bg-gradient-to-r from-fuchsia-700/30 to-gray-500 rounded-lg flex flex-col items-center justify-center text-center"
         >
           <!-- Company Logo -->
           <img
@@ -118,32 +35,23 @@
 
           <!-- Quotes -->
           <p class="text-lg px-14 text-gray-300 mt-10">
-            GitHub helps us ensure that we have our security controls baked into
-            our pipelines all the way from the first line of code we’re writing.
+            It corresponds to a dice game, in which players bet on the possible
+            combinations that are generated by throwing two dice. The different
+            combinations on which bets are allowed are diagrammed on the game
+            table and each of these combinations is associated with a payout.
+            <br />
+            <%= content %> 
           </p>
 
           <!-- Photo -->
 
           <!-- Title -->
-          <p class="text-base font-bold px-14 text-gray-300 mt-3">
-            Chief Information Security Officer
-          </p>
+          <p class="text-base font-bold px-14 text-gray-300 mt-3">Dices Game</p>
 
-          <p class="text-sm font-light px-14 text-gray-300">Dow Jones</p>
+          <p class="text-sm font-light px-14 text-gray-300">A Dev</p>
         </div>
       </div>
     </div>
-    <!-- <div class="flex-shrink-0 flex items-center justify-center py-6">
-      <img
-        class="block lg:hidden h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-      <img
-        class="hidden lg:block h-40 w-40"
-        src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
-        alt="Workflow"
-      />
-    </div>  -->
+    <%- include('components/footer'); %>
   </body>
 </html>
