@@ -1,3 +1,7 @@
+/**
+ * Function to generate a list of random numbers
+ * @returns List of random numbers
+ */
 exports.randomNumbers= () => {
   const numberMax = 6,
     numberMin = 1;

@@ -1,5 +1,13 @@
+/**
+ * Import Model Game 
+ */
 const Game = require("../models/game");
 
+/**
+ * Controller view winner GET method with response and request data
+ * @param {*} req route's request data (input- Id Game from UI View)
+ * @param {*} res route's response data (output- UI View)
+ */
 exports.viewWinner= async function (req, res) {
   const id = req.params.id;
   try {

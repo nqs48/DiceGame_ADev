@@ -158,8 +158,9 @@
 
     <% } %> <%- include('components/footer'); %>
     <script>
-      const btnDeleteGame = document.querySelector("#btnDeleteGame");
 
+    
+      const btnDeleteGame = document.querySelector("#btnDeleteGame");
       btnDeleteGame.addEventListener("click", async () => {
         console.log("Go to Delete");
         const id = btnDeleteGame.dataset.id;
