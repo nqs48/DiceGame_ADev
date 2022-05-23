@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎲 Dice Game</title>
+    <title>🎲 DiceGame | Details Game</title>
     <link href="../public/styles.css" rel="stylesheet" />
   </head>
   <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
@@ -83,20 +83,24 @@
         </tbody>
       </table>
       <div
-        class="relative flex justify-center px-3 py-1 font-semibold  leading-tight"
+        class="relative flex justify-center px-3 py-1 font-semibold leading-tight"
       >
         <% if (game.inProgress) { %>
         <span
           aria-hidden
           class="absolute inset-0 bg-green-300 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative text-green-800">In Progress: <%= game.inProgress %> </span>
+        <span class="relative text-green-800"
+          >In Progress: <%= game.inProgress %>
+        </span>
         <% }else{ %>
         <span
           aria-hidden
           class="absolute inset-0 bg-gray-200 opacity-50 rounded-b-lg"
         ></span>
-        <span class="relative text-gray-800">In Progress: <%= game.inProgress %> </span>
+        <span class="relative text-gray-800"
+          >In Progress: <%= game.inProgress %>
+        </span>
         <% } %>
       </div>
 
@@ -136,13 +140,21 @@
       </div>
     </div>
     <% }else { %>
-    <div class="bg-white text-red-400 p-5"><%= content %> </div>
-    <a
-      href="/"
-      class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+    <div
+      class="h-4/5 mx-auto w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
-      Go Main
-    </a>
+      <div class="bg-white p-10 rounded-lg text-gray-600 flex justify-center w-2/5 m-auto">
+        <p><%= content %></p>
+      </div>
+      <div class="flex justify-center">
+        <a
+          href="/"
+          class="group relative w-1/5 flex justify-center py-3 mt-8 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+        >
+          Go HomePage
+        </a>
+      </div>
+    </div>
 
     <% } %> <%- include('components/footer'); %>
     <script>
@@ -157,7 +169,7 @@
           const res = await data.json();
           if (res.estado) {
             //res.render("confirmation")
-            alert("The game was delete!!")
+            alert("The game was delete!!");
             window.location.href = "/games";
           } else {
             console.log(res);
@@ -175,7 +187,7 @@
         try {
           const data = await fetch(`/startGame/${id}`, { method: "PUT" });
           const res = await data.json();
-          if (res.estado) {
+          if (res.status) {
             alert("Game played successfully!!");
             window.location.href = `/findGame/${id}`;
           } else {

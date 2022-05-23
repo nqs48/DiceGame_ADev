@@ -1,7 +1,4 @@
-var mongoose = require("mongoose");
-var Game = require("../models/game");
-
-
+const Game = require("../models/game");
 
 exports.deleteByIdGame= async function (req, res) {
   const id = req.params.id;

@@ -1,16 +1,14 @@
-var mongoose = require("mongoose");
-var Game = require("../models/game");
-
+const Game = require("../models/game");
 
 exports.AllGames= async (req, res)=> {
   try {
     const arrayGames = await Game.find();
     res.status(200).render("games", {
       arrayGames,
-      title: "Lista de jugadores",
+      title: " All Games",
     });
   } catch (error) {
-    res.render("error");
+    res.render("error", {title: "Error"});
   }
 }
 

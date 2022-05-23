@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎲 Dice Game</title>
+    <title>🎲 DiceGame | All Games </title>
     <link href="../public/styles.css" rel="stylesheet" />
   </head>
   <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
     <%- include('components/header'); %>
-    <div class="flex justify-center p-6 h-4/5">
+    <div class="flex justify-center p-6 h-4/5 overflow-y-auto">
       <div class="p-8 w-full">
         <div class="flex items-center justify-center pb-6">
           <div>
@@ -17,7 +17,7 @@
               class="rounded-full mx-auto min-h-full flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
             >
               <% if (arrayGames.length > 0) { %>
-              <table class="min-w-full rounded-full">
+              <table class="min-w-full rounded-full ">
                 <thead>
                   <tr>
                     <th
@@ -131,8 +131,8 @@
                 </tbody>
               </table>
               <% }else { %>
-              <a href="/" class="bg-white p-10 rounded-lg text-gray-600"
-                >There no data</a
+              <span class="bg-white p-10 rounded-lg text-gray-600"
+                >There no data</span
               >
 
               <% } %>
