@@ -1,6 +1,18 @@
+/**
+ * Import Model Game 
+ */
 const Game = require("../models/game");
+
+/**
+ * Import function ThrowDice
+ */
 const main = require("../public/javascripts/app");
 
+/**
+ * Controller start game PUT method with response and request data
+ * @param {*} req route's request data (input- Id Game from UI View)
+ * @param {*} res route's response data (output- UI View)
+ */
 exports.playGameStarted = async function (req, res) {
   const id = req.params.id;
   const throwDice = main.randomNumbers();

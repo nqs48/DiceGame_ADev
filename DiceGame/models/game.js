@@ -1,6 +1,11 @@
+/**
+ * Imports functions from mongoose
+ */
 const {Schema, model} = require("mongoose");
 
-
+/**
+ * playerSchema, template for creates a player
+ */
 const playerSchema = new Schema({
   name: { type: String, trim: true, required: true },
   age: {
@@ -11,6 +16,9 @@ const playerSchema = new Schema({
   score: { type: Number, trim: true, required: false },
 });
 
+/**
+ * gameSchema, template for creates a game
+ */
 const gameSchema = new Schema(
   {
     gamers: [playerSchema],

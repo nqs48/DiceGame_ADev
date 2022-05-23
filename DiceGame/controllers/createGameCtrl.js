@@ -1,7 +1,18 @@
+/**
+ * Import Model Game 
+ */
 const Game = require("../models/game");
+
+/**
+ *  Import Model Player
+ */
 const Player = require("../models/player");
 
-
+/**
+ * Controller Create Game GET method without request data
+ * @param {*} req route's request data 
+ * @param {*} res route's response data 
+ */
 exports.getCreateGame = (req, res) => {
 try {
   res.status(200).render("createGame",{title: "Create Game"});
@@ -10,6 +21,11 @@ try {
 }
 };
 
+/**
+ * Controller Create Game POST method
+ * @param {*} req route's request data 
+ * @param {*} res route's response data
+ */
 exports.postCreateGame= async (req, res) => {
   const body = req.body;
   try {
