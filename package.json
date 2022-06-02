@@ -4,7 +4,7 @@
   "description": "Introduction to express generator",
   "private": true,
   "scripts": {
-    "start": "node .",
+    "start": "node ./bin/www ",
     "n-start": "nodemon ./bin/www ",
     "debug": "set DEBUG=dicegame:* & nodemon --inspect ./bin/www",
     "build-css": "NODE_ENV=production tailwindcss build -i public/stylesheets/tailwindcss.css -o public/styles.css "
