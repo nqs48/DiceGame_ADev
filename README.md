@@ -1,6 +1,7 @@
 # SofkaS4T1-DiceGame-API_REST
 Demo project where a separation of responsibilities is united using the concepts of:  - Template (view), Logic (controller) , Data (Model). Rest-oriented system.
 
+---
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -10,6 +11,9 @@ Responsive design of a dynamic web page, where you can play a game of dice with 
 - Key frontend and backend concepts
 - Rest API with Nodejs
 - API consumption from the frontend
+
+### [https://adice-game.herokuapp.com/](https://adice-game.herokuapp.com/)
+
 
 ---
 
@@ -195,6 +199,6 @@ Jr. Software Developer
 - LinkedIn => [Nestor Quiroga Suárez](https://www.linkedin.com/in/nqs48/)
 
 
-Project Link: [https://github.com/nqs48/SofkaS4T1-API_REST-DiceGame](https://github.com/nqs48/SofkaS4T1-API_REST-DiceGame)
+Project Link: [https://adice-game.herokuapp.com/](https://adice-game.herokuapp.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
