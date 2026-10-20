@@ -18,6 +18,7 @@ exports.deleteByIdGame= async function (req, res) {
       res.json({ estado: false, mensaje: "No deleted!!" });
     }
   } catch (error) {
-    console.log(err);
+    console.log(error);
+    res.json({ estado: false, mensaje: "No deleted!!" });
   }
 };
