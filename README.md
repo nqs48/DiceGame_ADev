@@ -1,204 +1,304 @@
-# DiceGame-API_REST
-Demo project where a separation of responsibilities is united using the concepts of:  - Template (view), Logic (controller) , Data (Model). Rest-oriented system.
+<a id="top"></a>
+
+<h1 align="center">🎲 DiceGame</h1>
+
+<p align="center">
+  A dice game for 2 to 5 players with animated 3D dice, built with Node.js, Express, EJS and MongoDB following the MVC pattern.
+</p>
+
+<p align="center">
+  <a href="https://dice.nesst-tech.online/">
+    <img src="https://img.shields.io/badge/%E2%96%B6%20PLAY%20NOW-dice.nesst--tech.online-22d3ee?style=for-the-badge&labelColor=164e63" alt="Play now at dice.nesst-tech.online">
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js with Express">
+  <img src="https://img.shields.io/badge/views-EJS-b4ca65?style=flat-square" alt="EJS views">
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-47a248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB Atlas">
+  <img src="https://img.shields.io/badge/Tailwind-CSS-06b6d4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/Netlify-Functions-00c7b7?style=flat-square&logo=netlify&logoColor=white" alt="Netlify Functions">
+  <img src="https://img.shields.io/badge/pattern-MVC-7700a6?style=flat-square" alt="MVC pattern">
+</p>
+
+<p align="center">
+  <a href="https://dice.nesst-tech.online/">
+    <img src="docs/images/dice-game.png" alt="Finished four-player game with the winner highlighted" width="900">
+  </a>
+</p>
+
+## Contents
+
+- [Features](#features)
+  - [Game modes](#game-modes)
+  - [Create a game](#create-a-game)
+  - [Turn-based roll](#turn-based-roll)
+  - [Free roll](#free-roll)
+  - [Find games](#find-games)
+  - [Winner and game details](#winner-and-game-details)
+  - [Error page](#error-page)
+- [How to play](#how-to-play)
+- [Routes](#routes)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+- [Deployment](#deployment)
+- [Branching model](#branching-model)
+- [Background](#background)
 
 ---
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+## Features
 
-Responsive design of a dynamic web page, where you can play a game of dice with your friends or family obtaining an undisputed winner.
+### Game modes
 
-- Key frontend and backend concepts
-- Rest API with Nodejs
-- API consumption from the frontend
+| Mode | Players | Saved in the database | Where |
+|---|---|---|---|
+| **Turn-based game** | 2 to 5 | Yes | **Create Game** menu option |
+| **Free roll** | Anyone | No | **Free Roll** menu option |
 
-### [https://dice.nesst-tech.online/](https://dice.nesst-tech.online/)
+### Create a game
 
+<p align="center">
+  <img src="docs/images/create-game-players.png" alt="Create game form with 4 players selected" width="500">
+</p>
 
----
+- Choose how many players will play (from 2 to 5, three by default); only the fields for the selected players are shown.
+- Every visible field is required, and the age is a number.
+- The server also limits the number of players to between 2 and 5, so the form can't be bypassed.
 
-# PROJECT REVIEW:
+### Turn-based roll
 
-### UI Index Web Page
+Each player takes a turn: press **Roll dice** to spin the 3D die, then **Next player** to pass the turn.
 
-Responsive design of a dynamic web page
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/images/turn-based-roll.png" alt="Bruno rolled a 1 and the next turn is Carla's"><br>
+      <sub><b>1.</b> Alice and Bruno already rolled. The button passes the turn to <b>Carla</b>.</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/images/turn-based-winner.png" alt="Alice wins with 6, highlighted in yellow"><br>
+      <sub><b>2.</b> After the last roll, the winner is highlighted: <b>Alice wins with 6</b>.</sub>
+    </td>
+  </tr>
+</table>
 
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288980/Sofka%20Assets/Semana%204/index_jgoxw8.png)
+How a game works:
 
+| Step | What happens |
+|---|---|
+| First roll | The server rolls all the dice in a single request and saves the game as played |
+| Each turn | The current player's die spins and lands on their value |
+| Values | Every player gets a different number from 1 to 6, so there is always one winner |
+| Last turn | The highest number wins and **View results** opens the played game |
 
----
+- The values come from the server, so they can't be changed from the browser.
+- When the system's *reduce motion* setting is on, the dice change face without spinning.
 
-## CREATE GAME:
+### Free roll
 
-### Form to create game
+<table>
+  <tr>
+    <td width="300"><img src="docs/images/free-roll-mobile.png" alt="Free roll on a phone-sized screen showing a 3" width="280"></td>
+    <td>
+      <ul>
+        <li>A single 3D die: press <b>Roll dice</b> and get a number from 1 to 6.</li>
+        <li>Roll as many times as you want with <b>Roll again</b>.</li>
+        <li>The value is generated in the browser: there are no requests to the server and nothing is saved in the database.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-Game creation with three players required.
+<p align="center">
+  <img src="docs/images/free-roll.png" alt="Free roll page on desktop showing a 4" width="900">
+</p>
 
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288978/Sofka%20Assets/Semana%204/cretaeGameUI_efx0jh.png)
+### Find games
 
-### Form Validation
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/images/find-game.png" alt="Search field with a game ID"><br>
+      <sub><b>Find by ID:</b> paste a game's unique identifier to open its details.</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/images/all-games.png" alt="List of games with their players and status"><br>
+      <sub><b>All games:</b> every game with its players, status and a link to its details.</sub>
+    </td>
+  </tr>
+</table>
 
-Form validation with required fields.
+### Winner and game details
 
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288979/Sofka%20Assets/Semana%204/formValidation_r0eac1.png)
+<p align="center">
+  <img src="docs/images/winner.png" alt="Winner page showing Alice with a score of 6" width="900">
+</p>
 
+- A played game shows each player's score, the dice on their final values and the winner highlighted.
+- **View Winner** opens the winner's details, and **Delete Game** removes the game from the database.
 
----
+### Error page
 
-## FIND GAMES:
+<p align="center">
+  <img src="docs/images/error.png" alt="404 page with a link back to the homepage" width="900">
+</p>
 
-### Find By ID
-
-Filter to find games from their unique identifier.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288979/Sofka%20Assets/Semana%204/UiFindGame_kuaonr.png)
-
-
-### Find All Games
-
-Method to find all available games in the database.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288978/Sofka%20Assets/Semana%204/allGamesInfo_uftybe.png)
-
-
-### Can't Find All Games
-
-View display when there are no games in the database.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653290878/Sofka%20Assets/Semana%204/noData_diggb3.png)
-
-### Can't Find By ID
-
-View display when game is not found by identifier.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653290878/Sofka%20Assets/Semana%204/cantFindID_fuhlrw.png)
-
-
----
-
-## DETAILS GAME:
-
-### State of the game inProgress: True
-
-Status to validate if the game can be played.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288980/Sofka%20Assets/Semana%204/waitingPlayGame_ibpxe0.png)
-
-
-### State of the game inProgress: False
-
-If the game has been played, I could see the details of the winner.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288978/Sofka%20Assets/Semana%204/UIGamePlayed_pbigvv.png)
-
-
-### View Winner
-
-See the details of the winner gives game.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288978/Sofka%20Assets/Semana%204/viewWinner_xqsrz1.png)
-
-
----
-
-## DELETE GAME:
-
-### Delete some game
-
-Deleting a game that has been played or not.
-
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288978/Sofka%20Assets/Semana%204/deleteGame_w9wpix.png)
-
+Any route that doesn't exist shows a 404 page with a link back to the homepage.
 
 ---
 
-## ERROR UI:
+## How to play
 
-### Generic View for Not Found
+| Step | Action |
+|---|---|
+| 1 | Open **Create Game**, choose the number of players and fill in their names and ages |
+| 2 | Each player presses **Roll dice** on their turn |
+| 3 | Press **Next player** to pass the turn |
+| 4 | The highest number wins. Press **View results** to see the played game |
 
-If a route is not found automatically an error view is displayed.
+Just want a number? Open **Free Roll** and roll the die.
 
-![image](https://res.cloudinary.com/adev48/image/upload/v1653288980/Sofka%20Assets/Semana%204/UIError_fkpw2t.png)
+## Routes
 
+| Method | Route | What it does |
+|---|---|---|
+| `GET` | `/` | Homepage |
+| `GET` | `/createGame` | Form to create a game |
+| `POST` | `/createGame` | Creates a game with 2 to 5 players |
+| `GET` | `/findGame` | Search by game ID |
+| `GET` | `/findGame/:id` | Game details |
+| `PUT` | `/startGame/:id` | Rolls the dice and saves the result; returns `scores` and `winnerIndex` |
+| `GET` | `/winnerGame/:id` | Winner of a game |
+| `GET` | `/deleteGame/:id` | Deletes a game |
+| `GET` | `/games` | All games |
+| `GET` | `/freeRoll` | Free roll mode (no database) |
 
-## Built With
+## Project structure
 
-This section contains the platforms that were used for the project.
+```
+├── app.js                      # Express app, routes and MongoDB connection
+├── bin/www                     # Local HTTP server
+├── netlify.toml                # Netlify build, redirects and function settings
+├── netlify/functions/
+│   └── server.js               # Express app wrapped as a Netlify Function
+├── docs/images/                # README screenshots
+├── models/
+│   ├── game.js                 # Game: players, status and winner
+│   └── player.js               # Player: name, age and score
+├── controllers/                # One controller per route (create, find, start, winner, delete, games, free roll)
+├── routes/                     # Express routers
+├── views/
+│   ├── components/
+│   │   ├── header.ejs / footer.ejs
+│   │   ├── diceStage.ejs       # Turn-based dice row
+│   │   └── dieCube.ejs         # Reusable 3D die
+│   └── *.ejs                   # Pages
+└── public/
+    ├── styles.css              # Tailwind build
+    ├── layout.css              # Full-height page layout
+    ├── dice.css                # 3D dice and roll animation
+    └── javascripts/app.js      # Dice values generator
+```
 
-* [Node js](https://nodejs.org/es/)
-* [Git](https://git-scm.com/)
-* [MongoDB Compass](https://www.mongodb.com/es/products/compass)
+## Getting started
 
-
-### Installation
-
-Install each one the pieces of software previously mentioned.
-
+You need [Node.js](https://nodejs.org/) and a [MongoDB Atlas](https://www.mongodb.com/atlas) cluster (the free M0 tier works).
 
 1. Clone the repo
 
-- HTTPS
-   ```
-   $ git clone https://github.com/nqs48/SofkaS4T1-API_REST-DiceGame.git
+   ```bash
+   # HTTPS
+   git clone https://github.com/nqs48/DiceGame_ADev.git
+
+   # SSH
+   git clone git@github.com:nqs48/DiceGame_ADev.git
    ```
 
+2. Install the dependencies
 
-- SSH
-   ```
-   $ git clone git@github.com:nqs48/SofkaS4T1-API_REST-DiceGame.git
-   ```
-
-
-2. Open the project with VisualStudio Code (In the root proyect directory)
-
-   ```
-   $ open .
-   ```
-   
-3. Install the node package (In the root proyect directory)
-
-   ```
-   $ npm install
-   ```
-   
-4. Set your environment variables or write the connection string of your cluster in mongo db (File App.js) 
-
-   ```
-    mongodb+srv://<Your-User>:<Your-Password>@cluster0.j505h.mongodb.net/<Your-DataBase>?retryWrites=true&w=majority
-    
-   ```   
-   
-5. Run the proyect (In the root proyect directory)
-
-   ```
-   $ npm run start
+   ```bash
+   npm install
    ```
 
-6. Open the localhost port 3000 in your preference browser
+3. Create a `.env` file in the root directory with your connection string (it is ignored by git)
 
+   ```bash
+   MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
    ```
-   http://localhost:3000/
-   
+
+4. Run the project
+
+   ```bash
+   npm start          # or: npm run n-start (restarts on file changes)
    ```
+
+   Then open [http://localhost:3000](http://localhost:3000).
+
+## Deployment
+
+The site runs on **Netlify**: static files are served by its CDN and every other route is handled by the Express app as a Netlify Function (see `netlify.toml`).
+
+- Set the `MONGODB_URI` environment variable in *Project configuration → Environment variables*.
+- In MongoDB Atlas, allow access from `0.0.0.0/0`, since Netlify Functions don't have fixed IPs.
+- To reproduce the Netlify environment locally (Node 20 or newer): `npx netlify-cli dev`.
+
+## Branching model
+
+This repository follows **Git Flow**:
+
+| Branch | Created from | Merged into | Purpose |
+|---|---|---|---|
+| `main` | — | — | Production (deployed site) |
+| `develop` | `main` | `main` | Integration of finished work |
+| `feature/*`, `docs/*` | `develop` | `develop` | New features and documentation |
+| `release/x.y.z` | `develop` | `main` and `develop` | Release preparation, tagged `vX.Y.Z` |
+| `hotfix/*` | `main` | `main` and `develop` | Urgent production fixes |
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/).
 
 ---
 
-<!-- LICENSE -->
+## Background
+
+This project started as a REST API practice of the Sofka Training Campus: a three-player dice game with Node.js, Express and MongoDB, separating views, controllers and models. It was first deployed on Heroku and later moved to Netlify, adding the turn-based 3D dice, games from 2 to 5 players and the free roll mode.
+
+## Built with
+
+- [Node.js](https://nodejs.org/) & [Express](https://expressjs.com/)
+- [EJS](https://ejs.co/) templates
+- [MongoDB Atlas](https://www.mongodb.com/atlas) with [Mongoose](https://mongoosejs.com/)
+- [Tailwind CSS](https://tailwindcss.com/) and CSS 3D transforms for the dice
+- [Netlify](https://www.netlify.com/) Functions with [serverless-http](https://github.com/dougmoscrop/serverless-http)
+- [Git](https://git-scm.com/)
+
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
----
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Collaborators
-```
-Nestor Quiroga Suarez
-Jr. Software Developer
-```
-- LinkedIn => [Nestor Quiroga Suárez](https://www.linkedin.com/in/nqs48/)
 
+<table>
+  <tr>
+    <td align="center" width="150">
+      <a href="https://github.com/nqs48">
+        <img src="https://raw.githubusercontent.com/nqs48/nqs48/assets/avatar-vip.svg" alt="Nestor Quiroga Suárez" width="140">
+      </a>
+    </td>
+    <td>
+      <h3>Nestor Quiroga Suárez</h3>
+      <b>Full Stack Software Engineer</b> · AI-Native Engineering<br>
+      <sub>.NET · Node.js · Angular · React · AWS · Azure</sub>
+      <br><br>
+      <a href="https://www.linkedin.com/in/nqs48/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMC40NDcgMjAuNDUyaC0zLjU1NHYtNS41NjljMC0xLjMyOC0uMDI3LTMuMDM3LTEuODUyLTMuMDM3LTEuODUzIDAtMi4xMzYgMS40NDUtMi4xMzYgMi45Mzl2NS42NjdIOS4zNTFWOWgzLjQxNHYxLjU2MWguMDQ2Yy40NzctLjkgMS42MzctMS44NSAzLjM3LTEuODUgMy42MDEgMCA0LjI2NyAyLjM3IDQuMjY3IDUuNDU1djYuMjg2ek01LjMzNyA3LjQzM2MtMS4xNDQgMC0yLjA2My0uOTI2LTIuMDYzLTIuMDY1IDAtMS4xMzguOTItMi4wNjMgMi4wNjMtMi4wNjMgMS4xNCAwIDIuMDY0LjkyNSAyLjA2NCAyLjA2MyAwIDEuMTM5LS45MjUgMi4wNjUtMi4wNjQgMi4wNjV6bTEuNzgyIDEzLjAxOUgzLjU1NVY5aDMuNTY0djExLjQ1MnpNMjIuMjI1IDBIMS43NzFDLjc5MiAwIDAgLjc3NCAwIDEuNzI5djIwLjU0MkMwIDIzLjIyNy43OTIgMjQgMS43NzEgMjRoMjAuNDUxQzIzLjIgMjQgMjQgMjMuMjI3IDI0IDIyLjI3MVYxLjcyOUMyNCAuNzc0IDIzLjIgMCAyMi4yMjIgMGguMDAzeiIvPjwvc3ZnPg%3D%3D" alt="LinkedIn"></a>
+      <a href="https://nesst.tech"><img src="https://img.shields.io/badge/Portfolio-DD0031?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMSAxNy45M2MtMy45NS0uNDktNy0zLjg1LTctNy45MyAwLS42Mi4wOC0xLjIxLjIxLTEuNzlMOSAxNXYxYzAgMS4xLjkgMiAyIDJ2MS45M3ptNi45LTIuNTRjLS4yNi0uODEtMS0xLjM5LTEuOS0xLjM5aC0xdi0zYzAtLjU1LS40NS0xLTEtMUg4di0yaDJjLjU1IDAgMS0uNDUgMS0xVjdoMmMxLjEgMCAyLS45IDItMnYtLjQxYzIuOTMgMS4xOSA1IDQuMDYgNSA3LjQxIDAgMi4wOC0uOCAzLjk3LTIuMSA1LjM5eiIvPjwvc3ZnPg%3D%3D" alt="Portfolio"></a>
+      <a href="mailto:nqs48@hotmail.com"><img src="https://img.shields.io/badge/Outlook-0078D4?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMCA0SDRjLTEuMSAwLTIgLjktMiAydjEyYzAgMS4xLjkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNmMwLTEuMS0uOS0yLTItMnptMCA0bC04IDUtOC01VjZsOCA1IDgtNXYyeiIvPjwvc3ZnPg%3D%3D" alt="Outlook"></a>
+      <a href="https://github.com/nqs48"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+    </td>
+  </tr>
+</table>
 
-Project Link: [https://dice.nesst-tech.online/](https://dice.nesst-tech.online/)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="center">
+  <a href="#top">Back to top ↑</a>
+</p>
