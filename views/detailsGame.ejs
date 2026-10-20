@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🎲 DiceGame | Details Game</title>
     <link href="../public/styles.css" rel="stylesheet" />
+    <link href="../public/layout.css" rel="stylesheet" />
+    <link href="../public/dice.css" rel="stylesheet" />
   </head>
-  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
+  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 full-page">
     <%- include('components/header'); %> <% if (!error) { %>
     <div
-      class="h-4/5 mx-auto w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+      class="mx-auto w-4/5 flex-row justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
     >
       <div class="">
         <div
@@ -104,25 +106,12 @@
         <% } %>
       </div>
 
+      <%- include('components/diceStage', { game }); %>
+
       <div
         class="px-4 py-3 text-right sm:px-6 flex justify-between w-2/5 mx-auto my-10"
       >
-        <% if (game.inProgress) { %>
-        <button
-          id="btnPlayGame"
-          data-id="<%=game._id %>"
-          class="group justify-center relative w-2/5 py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-        >
-          Play Game
-        </button>
-        <% }else{ %>
-        <button
-          id="btnPlayGame"
-          data-id="<%=game._id %>"
-          class="hidden group justify-center relative w-2/5 py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-        >
-          Play Game
-        </button>
+        <% if (!game.inProgress) { %>
         <a
           href="/winnerGame/<%=game._id%>"
           class="group relative w-2/5 flex justify-center py-3 border border-transparent font-medium rounded-md text-white bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
@@ -161,7 +150,7 @@
 
     
       const btnDeleteGame = document.querySelector("#btnDeleteGame");
-      btnDeleteGame.addEventListener("click", async () => {
+      btnDeleteGame?.addEventListener("click", async () => {
         console.log("Go to Delete");
         const id = btnDeleteGame.dataset.id;
         console.log("id: ", id);
@@ -180,24 +169,101 @@
         }
       });
 
-      const btnPlayGame = document.querySelector("#btnPlayGame");
-      btnPlayGame.addEventListener("click", async () => {
-        console.log("Go to play and override");
-        const id = btnPlayGame.dataset.id;
-        console.log("id: ", id);
-        try {
-          const data = await fetch(`/startGame/${id}`, { method: "PUT" });
-          const res = await data.json();
-          if (res.status) {
-            alert("Game played successfully!!");
-            window.location.href = `/findGame/${id}`;
-          } else {
-            console.log(res);
+      /**
+       * Turn-based play: the server rolls all the dice in one request,
+       * then each player reveals their own die in turn
+       */
+      const stage = document.querySelector("#diceStage");
+      const btnTurn = document.querySelector("#btnTurn");
+      if (stage && btnTurn) {
+        const id = stage.dataset.id;
+        const players = [...stage.querySelectorAll(".dice-player")];
+        const turnLabel = document.querySelector("#diceTurn");
+        const errorLabel = document.querySelector("#diceError");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let turn = 0;
+        let result = null;
+        let waitingNext = false;
+
+        const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        const showTurn = () => {
+          players.forEach((p, i) => p.classList.toggle("is-active", i === turn));
+          turnLabel.textContent = `Player ${turn + 1} of ${players.length} · ${players[turn].dataset.name}'s turn`;
+          btnTurn.textContent = "Roll dice";
+        };
+
+        // Stop the spin at the end of a full turn so the landing starts smoothly
+        const stopRolling = (cube) =>
+          new Promise((resolve) => {
+            if (reduceMotion) return resolve();
+            const done = () => resolve();
+            cube.addEventListener("animationiteration", done, { once: true });
+            setTimeout(done, 700);
+          }).then(() => cube.classList.remove("is-rolling"));
+
+        const rollTurn = async () => {
+          const player = players[turn];
+          const cube = player.querySelector(".dice-cube");
+          btnTurn.disabled = true;
+          errorLabel.hidden = true;
+          if (!reduceMotion) cube.classList.add("is-rolling");
+          try {
+            if (!result) {
+              const [data] = await Promise.all([
+                fetch(`/startGame/${id}`, { method: "PUT" }),
+                wait(900),
+              ]);
+              const res = await data.json();
+              if (!res.status) throw new Error(res.message);
+              result = res;
+            } else {
+              await wait(900);
+            }
+          } catch (e) {
+            console.log(e);
+            cube.classList.remove("is-rolling");
+            errorLabel.hidden = false;
+            btnTurn.disabled = false;
+            return;
           }
-        } catch (e) {
-          console.log(e);
-        }
-      });
+
+          const score = result.scores[turn];
+          await stopRolling(cube);
+          requestAnimationFrame(() => cube.classList.add(`show-${score}`));
+          await wait(reduceMotion ? 0 : 1400);
+
+          player.classList.remove("is-active");
+          player.classList.add("is-done");
+          player.querySelector(".dice-score").textContent = score;
+          turnLabel.textContent = `${player.dataset.name} rolled ${score}`;
+          btnTurn.disabled = false;
+
+          if (turn < players.length - 1) {
+            waitingNext = true;
+            btnTurn.textContent = `Next player: ${players[turn + 1].dataset.name} →`;
+          } else {
+            const winner = players[result.winnerIndex];
+            winner.classList.add("is-winner");
+            turnLabel.textContent = `🏆 ${winner.dataset.name} wins with ${result.scores[result.winnerIndex]}!`;
+            btnTurn.textContent = "View results";
+            btnTurn.onclick = () => (window.location.href = `/findGame/${id}`);
+          }
+        };
+
+        btnTurn.addEventListener("click", () => {
+          if (btnTurn.onclick) return;
+          if (waitingNext) {
+            waitingNext = false;
+            turn++;
+            showTurn();
+          } else {
+            rollTurn();
+          }
+        });
+
+        showTurn();
+      }
     </script>
   </body>
 </html>
