@@ -1,0 +1,13 @@
+/**
+ * Shared page layout: at least as tall as the screen, with the footer at the bottom,
+ * so the background gradient never repeats below the content
+ */
+body.full-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.full-page > footer {
+  margin-top: auto;
+}
