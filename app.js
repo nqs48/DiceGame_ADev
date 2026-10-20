@@ -71,6 +71,11 @@ app.use("/winnerGame", require("./routes/winnerGame"));
  */
 app.use("/games", require("./routes/games"));
 
+/**
+ * Route FREE ROLL configuration with the assigned router
+ */
+app.use("/freeRoll", require("./routes/freeRoll"));
+
 
 /**
  * catch 404 and forward to error handler

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎲 DiceGame | Free Roll</title>
+    <link href="../public/styles.css" rel="stylesheet" />
+    <link href="../public/layout.css" rel="stylesheet" />
+    <link href="../public/dice.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 full-page">
+    <%- include('components/header'); %>
+    <div class="mx-auto w-4/5 py-12 px-4">
+      <h1 class="text-center text-3xl font-extrabold text-gray-900">
+        Free Roll
+      </h1>
+      <div class="dice-stage free-roll">
+        <p class="dice-turn">Just roll the dice, nothing is saved</p>
+        <div class="dice-row">
+          <div class="dice-player">
+            <%- include('components/dieCube', { value: null }); %>
+          </div>
+        </div>
+        <p id="freeResult" class="free-roll-result" aria-live="polite"></p>
+        <button id="btnFreeRoll" class="dice-btn" type="button">Roll dice</button>
+      </div>
+    </div>
+    <%- include('components/footer'); %>
+    <script>
+      /**
+       * Free roll: the value is generated in the browser, no request to the server
+       */
+      const btnFreeRoll = document.querySelector("#btnFreeRoll");
+      const cube = document.querySelector(".free-roll .dice-cube");
+      const result = document.querySelector("#freeResult");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      // Stop the spin at the end of a full turn so the landing starts smoothly
+      const stopRolling = () =>
+        new Promise((resolve) => {
+          if (reduceMotion) return resolve();
+          cube.addEventListener("animationiteration", resolve, { once: true });
+          setTimeout(resolve, 700);
+        }).then(() => cube.classList.remove("is-rolling"));
+
+      btnFreeRoll.addEventListener("click", async () => {
+        const value = Math.floor(Math.random() * 6) + 1;
+        btnFreeRoll.disabled = true;
+        result.textContent = "";
+        cube.classList.remove("show-1", "show-2", "show-3", "show-4", "show-5", "show-6");
+        if (!reduceMotion) {
+          cube.classList.add("is-rolling");
+          await wait(900);
+        }
+        await stopRolling();
+        requestAnimationFrame(() => cube.classList.add(`show-${value}`));
+        await wait(reduceMotion ? 0 : 1400);
+        result.textContent = value;
+        btnFreeRoll.textContent = "Roll again";
+        btnFreeRoll.disabled = false;
+      });
+    </script>
+  </body>
+</html>

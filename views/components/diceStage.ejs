@@ -1,0 +1,31 @@
+<%
+  const winnerName = game.winner ? game.winner.name : null;
+%>
+<div
+  id="diceStage"
+  class="dice-stage"
+  data-id="<%= game._id %>"
+  data-in-progress="<%= game.inProgress %>"
+>
+  <p id="diceTurn" class="dice-turn" aria-live="polite">
+    <% if (!game.inProgress && winnerName) { %>🏆 <%= winnerName %> wins!<% } %>
+  </p>
+  <div class="dice-row">
+    <% game.gamers.forEach((player, i) => {
+      const played = !game.inProgress && player.score > 0;
+      const classes = ["dice-player"];
+      if (played) classes.push("is-done");
+      if (played && player.name === winnerName) classes.push("is-winner");
+    %>
+    <div class="<%= classes.join(' ') %>" data-name="<%= player.name %>">
+      <%- include('dieCube', { value: played ? player.score : null }); %>
+      <p class="dice-name"><%= player.name %></p>
+      <p class="dice-score"><%= played ? player.score : "-" %></p>
+    </div>
+    <% }) %>
+  </div>
+  <% if (game.inProgress) { %>
+  <button id="btnTurn" class="dice-btn" type="button">Roll dice</button>
+  <p id="diceError" class="dice-error" hidden>Something went wrong, try again.</p>
+  <% } %>
+</div>

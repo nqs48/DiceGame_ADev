@@ -15,12 +15,12 @@ const main = require("../public/javascripts/app");
  */
 exports.playGameStarted = async function (req, res) {
   const id = req.params.id;
-  const throwDice = main.randomNumbers();
-  const maxNum = Math.max.apply(null, throwDice);
-  const winnerIndex = throwDice.indexOf(maxNum);
 
   try {
     const game = await Game.findById(id);
+    const throwDice = main.randomNumbers(game.gamers.length);
+    const maxNum = Math.max.apply(null, throwDice);
+    const winnerIndex = throwDice.indexOf(maxNum);
 
     for (let i = 0; i < game.gamers.length; i++) {
       game.gamers[i].score = throwDice[i];
@@ -36,7 +36,12 @@ exports.playGameStarted = async function (req, res) {
     try {
       const game = await Game.findByIdAndUpdate(id, body);
       console.log(game);
-      res.json({ status: true, message: "Game played successfully!!" });
+      res.json({
+        status: true,
+        message: "Game played successfully!!",
+        scores: throwDice,
+        winnerIndex,
+      });
     } catch (err) {
       console.log(err);
       res.json({ status: false, message: "Something went wrong!!" });
