@@ -34,9 +34,7 @@ exports.playGameStarted = async function (req, res) {
     };
 
     try {
-      const game = await Game.findByIdAndUpdate(id, body, {
-        useFindAndModify: false,
-      });
+      const game = await Game.findByIdAndUpdate(id, body);
       console.log(game);
       res.json({ status: true, message: "Game played successfully!!" });
     } catch (err) {

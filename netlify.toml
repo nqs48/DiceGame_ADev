@@ -1,0 +1,20 @@
+[build]
+  # Express app has no build step; overrides any command set in the Netlify UI
+  command = "echo 'No build step'"
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  included_files = ["views/**"]
+
+# Static files are served by Netlify's CDN under the same /public path the views use
+[[redirects]]
+  from = "/public/*"
+  to = "/:splat"
+  status = 200
+
+# Every other route is handled by Express
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200

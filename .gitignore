@@ -112,3 +112,5 @@ dist
 
 #DATA BASE KEYS
 KeysPrivateDB.js
+.netlify
+.env
