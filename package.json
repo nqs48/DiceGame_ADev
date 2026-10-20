@@ -10,7 +10,7 @@
     "build-css": "NODE_ENV=production tailwindcss build -i public/stylesheets/tailwindcss.css -o public/styles.css "
   },
   "author": "Nestor Quiroga -> Adev",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
