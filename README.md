@@ -12,7 +12,7 @@ Responsive design of a dynamic web page, where you can play a game of dice with 
 - Rest API with Nodejs
 - API consumption from the frontend
 
-### [https://adice-game.herokuapp.com/](https://adice-game.herokuapp.com/)
+### [https://dice.nesst-tech.online/](https://dice.nesst-tech.online/)
 
 
 ---
@@ -199,6 +199,6 @@ Jr. Software Developer
 - LinkedIn => [Nestor Quiroga Suárez](https://www.linkedin.com/in/nqs48/)
 
 
-Project Link: [https://adice-game.herokuapp.com/](https://adice-game.herokuapp.com/)
+Project Link: [https://dice.nesst-tech.online/](https://dice.nesst-tech.online/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
