@@ -300,7 +300,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 </table>
 
 <p align="center">
-  <a href="https://nesst.tech/"><strong>▶ Visit the portfolio</strong></a>
-  ·
   <a href="#top">Back to top ↑</a>
 </p>
