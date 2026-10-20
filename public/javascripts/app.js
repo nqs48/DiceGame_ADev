@@ -1,18 +1,16 @@
 /**
- * Function to generate a list of random numbers
- * @returns List of random numbers
+ * Function to generate a list of different random dice values
+ * @param {number} count how many values to generate (max 6)
+ * @returns List of random numbers between 1 and 6, without repeats
  */
-exports.randomNumbers= () => {
-  const numberMax = 6,
-    numberMin = 1;
+exports.randomNumbers= (count = 3) => {
+  const faces = [1, 2, 3, 4, 5, 6];
 
-  let number1, number2, number3;
+  // Fisher-Yates shuffle, then keep the first values
+  for (let i = faces.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [faces[i], faces[j]] = [faces[j], faces[i]];
+  }
 
-  do {
-    number1 = Math.floor(Math.random() * (numberMax - numberMin + 1) + numberMin);
-    number2 = Math.floor(Math.random() * (numberMax - numberMin + 1) + numberMin);
-    number3 = Math.floor(Math.random() * (numberMax - numberMin + 1) + numberMin);
-  } while (number1 === number2 || number1 === number3 || number3 === number2);
-
-  return [number1, number2, number3];
+  return faces.slice(0, count);
 }

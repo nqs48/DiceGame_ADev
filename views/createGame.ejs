@@ -6,113 +6,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🎲 DiceGame | Create Game</title>
     <link href="../public/styles.css" rel="stylesheet" />
+    <link href="../public/layout.css" rel="stylesheet" />
   </head>
-  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 h-screen">
+  <body class="bg-gradient-to-b from-cyan-400 to-cyan-50 full-page">
     <%- include('components/header'); %>
-    <div class="h-4/5">
+    <div class="pb-12">
       <div class="flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
           <div>
             <img
               class="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt="Workflow"
+              src="https://res.cloudinary.com/adev48/image/upload/v1652573714/Sofka%20Assets/Semana%204/dices_tzeuva.png"
+              alt="Dices"
             />
             <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Create Game
             </h1>
           </div>
           <form class="mt-8 space-y-6" action="createGame" method="POST">
-            <div class="rounded-md shadow-sm -space-y-px">
-              <h3 class="mt-6 mb-2 text-center text-xl font-bold text-gray-800">
-                Player 1
-              </h3>
-              <div>
-                <label for="nameP1" class="sr-only">Name</label>
-                <input
-                  id="nameP1"
-                  name="nameP1"
-                  type="text"
-                  autocomplete="given-name"
-                  required
-                  class="w-full h-12 rounded-t-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white focus:outline-none focus:ring-gray-50 focus:border-gray-50 focus:z-10"
-                  placeholder="Name or Nickname"
-                />
-              </div>
-              <div>
-                <label for="ageP1" class="sr-only">Age</label>
-                <input
-                  id="ageP1"
-                  name="ageP1"
-                  type="text"
-                  autocomplete="given-age"
-                  required
-                  class="w-full h-12 rounded-b-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white focus:outline-none focus:ring-gray-50 focus:border-gray-50 focus:z-10"
-                  placeholder="Age"
-                />
-              </div>
+            <div class="rounded-md shadow-sm">
+              <label
+                for="players"
+                class="block mb-2 text-center text-xl font-bold text-gray-800"
+              >
+                Number of players
+              </label>
+              <select
+                id="players"
+                name="players"
+                class="w-full h-12 rounded-lg px-4 border border-gray-300 text-gray-800 bg-white focus:outline-none"
+              >
+                <% for (let n = minPlayers; n <= maxPlayers; n++) { %>
+                <option value="<%= n %>" <%= n === defaultPlayers ? "selected" : "" %>><%= n %> players</option>
+                <% } %>
+              </select>
             </div>
 
-            <div class="rounded-md shadow-sm -space-y-px">
+            <% for (let i = 1; i <= maxPlayers; i++) { const off = i > defaultPlayers; %>
+            <div class="rounded-md shadow-sm -space-y-px player-fields" <%= off ? "hidden" : "" %>>
               <h3 class="mt-6 mb-2 text-center text-xl font-bold text-gray-800">
-                Player 2
+                Player <%= i %>
               </h3>
               <div>
-                <label for="nameP2" class="sr-only">Name</label>
+                <label for="nameP<%= i %>" class="sr-only">Name</label>
                 <input
-                  id="nameP2"
-                  name="nameP2"
+                  id="nameP<%= i %>"
+                  name="nameP<%= i %>"
                   type="text"
                   autocomplete="given-name"
                   required
+                  <%= off ? "disabled" : "" %>
                   class="w-full h-12 rounded-t-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white focus:outline-none focus:ring-gray-50 focus:border-gray-50 focus:z-10"
                   placeholder="Name or Nickname"
                 />
               </div>
               <div>
-                <label for="ageP2" class="sr-only">Age</label>
+                <label for="ageP<%= i %>" class="sr-only">Age</label>
                 <input
-                  id="ageP2"
-                  name="ageP2"
-                  type="ageP2"
-                  autocomplete="given-age"
+                  id="ageP<%= i %>"
+                  name="ageP<%= i %>"
+                  type="number"
+                  min="1"
+                  max="120"
                   required
+                  <%= off ? "disabled" : "" %>
                   class="w-full h-12 rounded-b-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white focus:outline-none focus:ring-gray-50 focus:border-gray-50 focus:z-10"
                   placeholder="Age"
                 />
               </div>
             </div>
-
-            <div class="rounded-md shadow-sm -space-y-px">
-              <h3 class="mt-6 mb-2 text-center text-xl font-bold text-gray-800">
-                Player 3
-              </h3>
-              <div>
-                <label for="nameP3" class="sr-only">Name</label>
-                <input
-                  id="nameP3"
-                  name="nameP3"
-                  type="text"
-                  autocomplete="given-name"
-                  required
-                  class="w-full h-12 rounded-t-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white focus:outline-none focus:ring-gray-50 focus:border-gray-50 focus:z-10"
-                  placeholder="Name or Nickname"
-                />
-              </div>
-              <div>
-                <label for="ageP3" class="sr-only">Age</label>
-                <input
-                  id="ageP3"
-                  name="ageP3"
-                  type="text"
-                  autocomplete="given-age"
-                  required
-                  class="w-full h-12 rounded-b-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white focus:outline-none focus:ring-gray-50 focus:border-gray-50 focus:z-10"
-                  
-                  placeholder="Age"
-                />
-              </div>
-            </div>
+            <% } %>
 
             <div class="flex justify-center">
               <button
@@ -129,5 +92,23 @@
       </div>
     </div>
     <%- include('components/footer'); %>
+    <script>
+      /**
+       * Show only the fields for the selected number of players;
+       * disabled inputs are skipped by validation and not submitted
+       */
+      const playersSelect = document.querySelector("#players");
+      const playerFields = document.querySelectorAll(".player-fields");
+      const showPlayers = () => {
+        const count = Number(playersSelect.value);
+        playerFields.forEach((fields, i) => {
+          const active = i < count;
+          fields.hidden = !active;
+          fields.querySelectorAll("input").forEach((input) => (input.disabled = !active));
+        });
+      };
+      playersSelect.addEventListener("change", showPlayers);
+      showPlayers();
+    </script>
   </body>
 </html>
