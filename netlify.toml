@@ -1,4 +1,6 @@
 [build]
+  # Express app has no build step; overrides any command set in the Netlify UI
+  command = "echo 'No build step'"
   publish = "public"
   functions = "netlify/functions"
 
