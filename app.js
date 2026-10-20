@@ -34,7 +34,7 @@ app.use(cookieParser());
 /**
  * Static file path configuration
  */
-app.use('/public',express.static("public"));
+app.use('/public',express.static(path.join(__dirname, "public")));
 
 /**
  * Route INDEX configuration with the assigned router
@@ -100,7 +100,9 @@ const uriLocal = "mongodb://localhost/diceGame";
 /**
  * MongoDBCompass connection string
  */
-const uriSRV = `mongodb+srv://${process.env.USERMDB}:${process.env.PASSWORD}@cluster0.j505h.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
+const uriSRV =
+  process.env.MONGODB_URI ||
+  `mongodb+srv://${process.env.USERMDB}:${process.env.PASSWORD}@cluster0.j505h.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 
 /**
  * Database connection method
@@ -108,6 +110,6 @@ const uriSRV = `mongodb+srv://${process.env.USERMDB}:${process.env.PASSWORD}@clu
 mongoose
   .connect(uriSRV, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("Error connecting to MongoDB ", uriSRV));
+  .catch((err) => console.log("Error connecting to MongoDB ", err.message));
 
 module.exports = app;
